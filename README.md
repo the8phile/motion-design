@@ -1,6 +1,6 @@
 # Kopia — motion design ad
 
-A 30-second vertical (1080×1920, 9:16) video ad for **Kopia**, campus printing and delivery
+A 31-second vertical (1080×1920, 9:16) video ad for **Kopia**, campus printing and delivery
 in Cameroon. Built with [Remotion](https://www.remotion.dev/) (React → MP4).
 Made for WhatsApp Status, TikTok, Instagram/Facebook Reels and Stories.
 
@@ -16,7 +16,7 @@ Rendered file: [`out/kopia-ad-9x16.mp4`](out/kopia-ad-9x16.mp4)
 | 0:14–0:17 | Escrow | Coin drops into a lock: the money stays with Kopia until handover |
 | 0:17–0:22 | Steps 3–4 | Printer counts 24/24 pages, scooter travels from the shop to "Salle B12" |
 | 0:22–0:26 | Step 5 | PIN 4821, "Livré !", 680 XAF split: shop 480 / courier 150 / Kopia 50 |
-| 0:26–0:30 | Call to action | "Dès 25 XAF la page", "Commandez sur kopia.online", referral offer |
+| 0:26–0:31 | Call to action | "Dès 25 XAF la page", "Commandez sur kopia.online", referral offer |
 
 ## Usage
 
@@ -30,7 +30,30 @@ npm run render   # writes out/kopia-ad-9x16.mp4
 
 - Text lives in `src/scenes/*.tsx`; colours and the font in `src/theme.ts`.
 - Scene order and lengths (in frames, 30 fps) are in `SCENES` in `src/KopiaAd.tsx`.
-- The video has no sound. Add a music bed or voice-over with `<Audio src={staticFile('music.mp3')} />`
-  in `src/KopiaAd.tsx` after placing the file in `public/`.
+
+## Sound
+
+Both tracks are generated offline, so there is nothing to license from a third party.
+
+- **Voice-over** (French, female voice): `public/audio/vo/*.wav`, timed by `src/voiceover.json`.
+  Edit the lines in `scripts/make_voiceover.py` and re-run it:
+  ```bash
+  pip install -r scripts/requirements.txt
+  # download kokoro-v1.0.onnx + voices-v1.0.bin from
+  # https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0
+  python3 scripts/make_voiceover.py --models path/to/that/folder
+  ```
+- **Music**: an original 108 BPM Afro-pop loop (kick, clap, tresillo rim, shaker, log drum, marimba chords,
+  kalimba lead) synthesised by `scripts/make_music.py` into `public/audio/music.wav`. The beat drops on
+  the logo reveal and ends on a hit during the call to action.
+- **Mix**: the music ducks under each voice-over line (`MUSIC_VOLUME` / `DUCKED_VOLUME` in
+  `src/KopiaAd.tsx`). The rendered file measures about −14 LUFS, the level social platforms expect.
+
+To use a real voice actor or a licensed track instead, replace the WAV files (same names) and
+re-render. If a recorded line runs longer, adjust its `from` / `durationInFrames` in `src/voiceover.json`.
+
+### Credits
+- Voice: [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) (Apache-2.0), voice `ff_siwis`,
+  trained on the [SIWIS French speech corpus](https://datashare.is.ed.ac.uk/handle/10283/2353) (CC BY 4.0).
 
 Font: Poppins (SIL Open Font License), bundled in `public/fonts`.

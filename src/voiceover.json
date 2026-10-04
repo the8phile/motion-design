@@ -1,0 +1,56 @@
+[
+  {
+    "file": "audio/vo/01.wav",
+    "from": 8,
+    "durationInFrames": 80,
+    "text": "Encore la queue à l'imprimerie… et le cours qui commence ?"
+  },
+  {
+    "file": "audio/vo/02.wav",
+    "from": 100,
+    "durationInFrames": 80,
+    "text": "Avec Kopia, on imprime… et on livre jusqu'en salle !"
+  },
+  {
+    "file": "audio/vo/03.wav",
+    "from": 186,
+    "durationInFrames": 71,
+    "text": "Envoyez votre fichier depuis votre téléphone."
+  },
+  {
+    "file": "audio/vo/04.wav",
+    "from": 305,
+    "durationInFrames": 50,
+    "text": "Payez par MoMo ou Orange Money."
+  },
+  {
+    "file": "audio/vo/05.wav",
+    "from": 416,
+    "durationInFrames": 74,
+    "text": "Votre argent reste bloqué jusqu'à la livraison."
+  },
+  {
+    "file": "audio/vo/06.wav",
+    "from": 518,
+    "durationInFrames": 47,
+    "text": "Une boutique partenaire imprime…"
+  },
+  {
+    "file": "audio/vo/07.wav",
+    "from": 596,
+    "durationInFrames": 64,
+    "text": "…et un coursier vérifié vous l'apporte en salle."
+  },
+  {
+    "file": "audio/vo/08.wav",
+    "from": 672,
+    "durationInFrames": 53,
+    "text": "Donnez votre code PIN. C'est livré !"
+  },
+  {
+    "file": "audio/vo/09.wav",
+    "from": 782,
+    "durationInFrames": 112,
+    "text": "Kopia ! Dès 25 francs la page. Commandez sur kopia.online"
+  }
+]
