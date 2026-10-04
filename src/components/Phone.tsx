@@ -4,8 +4,10 @@ import {LogoMark} from './Logo';
 
 // Pro-class smartphone modelled on a titanium iPhone: ~2.09 aspect ratio,
 // thin bezels, Dynamic Island, side buttons and a real edge thickness in 3D.
-const W = 600;
-const H = 1254;
+export const PHONE_W = 600;
+const W = PHONE_W;
+export const PHONE_H = 1254;
+const H = PHONE_H;
 const R = 104; // outer corner radius
 const BAND = 10; // titanium band seen from the front
 const BEZEL = 15; // black glass border around the display
@@ -20,7 +22,7 @@ const ink = '#111B21';
 const grey = '#667781';
 const accent = '#1DAA61';
 
-const StatusBar: React.FC = () => (
+const StatusBar: React.FC<{color: string}> = ({color}) => (
   <div
     style={{
       position: 'absolute',
@@ -35,7 +37,7 @@ const StatusBar: React.FC = () => (
       fontFamily: UI_FONT,
       fontWeight: 600,
       fontSize: 28,
-      color: ink,
+      color,
       zIndex: 5,
     }}
   >
@@ -44,14 +46,14 @@ const StatusBar: React.FC = () => (
       {/* signal */}
       <svg width={34} height={22} viewBox="0 0 34 22">
         {[0, 1, 2, 3].map((i) => (
-          <rect key={i} x={i * 9} y={16 - i * 5} width={6} height={6 + i * 5} rx={1.5} fill={ink} />
+          <rect key={i} x={i * 9} y={16 - i * 5} width={6} height={6 + i * 5} rx={1.5} fill={color} />
         ))}
       </svg>
       {/* wifi */}
       <svg width={30} height={22} viewBox="0 0 30 22">
-        <path d="M15 21 l-4.5-5 a6.5 6.5 0 0 1 9 0z" fill={ink} />
-        <path d="M5.5 11.5 a13.5 13.5 0 0 1 19 0" stroke={ink} strokeWidth={3.2} fill="none" strokeLinecap="round" />
-        <path d="M1.5 7 a19.5 19.5 0 0 1 27 0" stroke={ink} strokeWidth={3.2} fill="none" strokeLinecap="round" />
+        <path d="M15 21 l-4.5-5 a6.5 6.5 0 0 1 9 0z" fill={color} />
+        <path d="M5.5 11.5 a13.5 13.5 0 0 1 19 0" stroke={color} strokeWidth={3.2} fill="none" strokeLinecap="round" />
+        <path d="M1.5 7 a19.5 19.5 0 0 1 27 0" stroke={color} strokeWidth={3.2} fill="none" strokeLinecap="round" />
       </svg>
       {/* battery */}
       <div style={{display: 'flex', alignItems: 'center', gap: 2}}>
@@ -60,13 +62,14 @@ const StatusBar: React.FC = () => (
             width: 46,
             height: 22,
             borderRadius: 7,
-            border: `2px solid rgba(17,27,33,0.4)`,
+            border: `2px solid ${color}`,
+            opacity: 0.9,
             padding: 2,
           }}
         >
-          <div style={{width: '82%', height: '100%', borderRadius: 4, background: ink}} />
+          <div style={{width: '82%', height: '100%', borderRadius: 4, background: color}} />
         </div>
-        <div style={{width: 3, height: 8, borderRadius: 2, background: 'rgba(17,27,33,0.4)'}} />
+        <div style={{width: 3, height: 8, borderRadius: 2, background: color, opacity: 0.5}} />
       </div>
     </div>
   </div>
@@ -172,7 +175,9 @@ export const Phone: React.FC<{
   rotateZ?: number;
   /** 0..1 position of the light sweep across the glass. */
   sheen?: number;
-}> = ({children, rotateX = 0, rotateY = 0, rotateZ = 0, sheen = 0.3}) => (
+  screenBg?: string;
+  statusColor?: string;
+}> = ({children, rotateX = 0, rotateY = 0, rotateZ = 0, sheen = 0.3, screenBg = '#EFE7DE', statusColor = ink}) => (
   <div style={{perspective: 2600, width: W, height: H}}>
     <div
       style={{
@@ -248,31 +253,14 @@ export const Phone: React.FC<{
               height: '100%',
               borderRadius: R - BAND - BEZEL + 4,
               overflow: 'hidden',
-              background: '#EFE7DE',
+              background: screenBg,
               display: 'flex',
               flexDirection: 'column',
             }}
           >
-            <StatusBar />
+            <StatusBar color={statusColor} />
             <DynamicIsland />
-            <ChatHeader />
-            <div
-              style={{
-                flex: 1,
-                padding: '24px 22px 18px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                gap: 12,
-                overflow: 'hidden',
-                backgroundColor: '#EFE7DE',
-                backgroundImage: 'radial-gradient(rgba(0,0,0,0.045) 2px, transparent 2.5px)',
-                backgroundSize: '34px 34px',
-              }}
-            >
-              {children}
-            </div>
-            <InputBar />
+            {children}
             {/* Home indicator */}
             <div
               style={{
@@ -306,6 +294,30 @@ export const Phone: React.FC<{
       </div>
     </div>
   </div>
+);
+
+/** WhatsApp-style chat screen: header, message list (children), input bar. */
+export const ChatScreen: React.FC<{children: React.ReactNode}> = ({children}) => (
+  <>
+    <ChatHeader />
+    <div
+      style={{
+        flex: 1,
+        padding: '24px 22px 18px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        gap: 12,
+        overflow: 'hidden',
+        backgroundColor: '#EFE7DE',
+        backgroundImage: 'radial-gradient(rgba(0,0,0,0.045) 2px, transparent 2.5px)',
+        backgroundSize: '34px 34px',
+      }}
+    >
+      {children}
+    </div>
+    <InputBar />
+  </>
 );
 
 const Ticks: React.FC = () => (
@@ -368,3 +380,12 @@ export const Bubble: React.FC<{
     </div>
   );
 };
+
+/** Phone scaled down while keeping a correctly sized layout box. */
+export const ScaledPhone: React.FC<React.ComponentProps<typeof Phone> & {scale: number}> = ({scale, ...props}) => (
+  <div style={{width: PHONE_W * scale, height: PHONE_H * scale}}>
+    <div style={{transform: `scale(${scale})`, transformOrigin: 'top left'}}>
+      <Phone {...props} />
+    </div>
+  </div>
+);

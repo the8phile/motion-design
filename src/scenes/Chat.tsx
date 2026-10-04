@@ -3,7 +3,7 @@ import {AbsoluteFill, Sequence, useCurrentFrame} from 'remotion';
 import {ease, lerp, pop, range} from '../anim';
 import {C, FONT, UI_FONT} from '../theme';
 import {Caption} from '../components/Caption';
-import {Bubble, Phone} from '../components/Phone';
+import {Bubble, ChatScreen, Phone} from '../components/Phone';
 
 const PayButton: React.FC<{label: string; bg: string; fg: string; pressed: number}> = ({
   label,
@@ -76,6 +76,7 @@ export const Chat: React.FC = () => {
           }}
         />
         <Phone rotateX={rotX} rotateY={rotY} rotateZ={rotZ} sheen={sheen}>
+          <ChatScreen>
           <Bubble t={b(14)}>Bienvenue sur Kopia 👋 Quelle est votre zone de campus ?</Bubble>
           <Bubble out t={b(32)}>Molyko</Bubble>
           <Bubble t={b(48)}>Envoyez votre fichier (PDF, Word ou photo)</Bubble>
@@ -117,6 +118,7 @@ export const Chat: React.FC = () => {
           <Bubble t={b(190)}>
             <span style={{color: C.green, fontWeight: 700}}>✓ Paiement reçu : 680 XAF</span>
           </Bubble>
+          </ChatScreen>
         </Phone>
       </div>
     </AbsoluteFill>
