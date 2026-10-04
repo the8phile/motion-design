@@ -6,6 +6,10 @@ export const FONT = 'Poppins';
 for (const weight of ['400', '600', '800']) {
   loadFont({family: FONT, url: staticFile(`fonts/Poppins-${weight}.woff2`), weight});
 }
+
+// Inter (SIL Open Font License) for the on-screen phone UI, close to the iOS system font.
+export const UI_FONT = 'Inter';
+loadFont({family: UI_FONT, url: staticFile('fonts/Inter-Variable.woff2'), weight: '100 900'});
 export const C = {
   ink: '#0E1A2B',
   inkSoft: '#1B2B44',
