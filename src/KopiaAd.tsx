@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {ease} from './anim';
 import {Hook} from './scenes/Hook';
 import {Reveal} from './scenes/Reveal';
@@ -9,7 +9,6 @@ import {Deliver} from './scenes/Deliver';
 import {Pin} from './scenes/Pin';
 import {Cta} from './scenes/Cta';
 import {Focus} from './scenes/Focus';
-import voiceover from './voiceover.json';
 
 // Scene lengths in frames (30 fps). Each scene overlaps the previous by OVERLAP.
 const SCENES: {C: React.FC; dur: number; fadeIn: boolean}[] = [
@@ -32,36 +31,12 @@ const FadeIn: React.FC<{on: boolean; children: React.ReactNode}> = ({on, childre
   return <AbsoluteFill style={{opacity: on ? ease(f, 0, OVERLAP) : 1}}>{children}</AbsoluteFill>;
 };
 
-// Music sits at MUSIC_VOLUME and ducks to DUCKED_VOLUME under each voice-over line.
-const MUSIC_VOLUME = 0.85;
-const DUCKED_VOLUME = 0.3;
-const DUCK_RAMP = 6;
-
-const musicVolume = (f: number) => {
-  const duck = Math.max(
-    0,
-    ...voiceover.map((l) =>
-      interpolate(
-        f,
-        [l.from - DUCK_RAMP, l.from, l.from + l.durationInFrames, l.from + l.durationInFrames + DUCK_RAMP],
-        [0, 1, 1, 0],
-        {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
-      ),
-    ),
-  );
-  return MUSIC_VOLUME + (DUCKED_VOLUME - MUSIC_VOLUME) * duck;
-};
-
 export const KopiaAd: React.FC = () => {
   let from = 0;
   return (
     <AbsoluteFill style={{background: '#0E1A2B'}}>
-      <Audio src={staticFile('audio/music.wav')} volume={musicVolume} />
-      {voiceover.map((l) => (
-        <Sequence key={l.file} from={l.from} durationInFrames={l.durationInFrames + 10}>
-          <Audio src={staticFile(l.file)} />
-        </Sequence>
-      ))}
+      {/* Music, voice-over and sound effects, pre-mixed by scripts/mix_audio.py */}
+      <Audio src={staticFile('audio/mix.wav')} />
       {SCENES.map(({C, dur, fadeIn}, i) => {
         const start = from;
         from += dur - OVERLAP;

@@ -7,7 +7,8 @@
     "studio": "remotion studio",
     "render": "remotion render KopiaAdVertical out/kopia-ad-9x16.mp4",
     "still": "remotion still KopiaAdVertical out/still.png",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "audio": "python3 scripts/make_music.py && python3 scripts/make_sfx.py && python3 scripts/mix_audio.py"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.532",

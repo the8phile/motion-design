@@ -47,11 +47,19 @@ Both tracks are generated offline, so there is nothing to license from a third p
 - **Music**: an original 108 BPM Afro-pop loop (kick, clap, tresillo rim, shaker, log drum, marimba chords,
   kalimba lead) synthesised by `scripts/make_music.py` into `public/audio/music.wav`. The beat drops on
   the logo reveal and ends on a hit during the call to action.
-- **Mix**: the music ducks under each voice-over line (`MUSIC_VOLUME` / `DUCKED_VOLUME` in
-  `src/KopiaAd.tsx`). The rendered file measures about −14 LUFS, the level social platforms expect.
+- **Sound effects**: 76 synthesised cues (word pops, ticking clock, whooshes, message sounds,
+  payment chime, coin and lock, printer and paper, scooter engine, notification, PIN taps,
+  keyboard typing, button tap) placed on frames in `scripts/make_sfx.py` → `public/audio/sfx.wav`.
+- **Mix**: `scripts/mix_audio.py` combines everything into `public/audio/mix.wav`, which is the only
+  audio file the video uses. The music ducks under each voice-over line, a limiter catches the
+  peaks, and the master sits at about −14 LUFS, the level social platforms expect. Levels are the
+  constants at the top of that script.
+
+After changing music, effects or voice: `npm run audio` (re-runs music, effects and the mix), then
+`npm run render`.
 
 To use a real voice actor or a licensed track instead, replace the WAV files (same names) and
-re-render. If a recorded line runs longer, adjust its `from` / `durationInFrames` in `src/voiceover.json`.
+run `python3 scripts/mix_audio.py` and re-render. If a recorded line runs longer, adjust its `from` / `durationInFrames` in `src/voiceover.json`.
 
 ### Photos
 
