@@ -49,7 +49,13 @@
   },
   {
     "file": "audio/vo/09.wav",
-    "from": 782,
+    "from": 778,
+    "durationInFrames": 89,
+    "text": "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression."
+  },
+  {
+    "file": "audio/vo/10.wav",
+    "from": 876,
     "durationInFrames": 112,
     "text": "Kopia ! Dès 25 francs la page. Commandez sur kopia.online"
   }

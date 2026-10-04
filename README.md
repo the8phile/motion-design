@@ -1,6 +1,6 @@
 # Kopia — motion design ad
 
-A 31-second vertical (1080×1920, 9:16) video ad for **Kopia**, campus printing and delivery
+A 35-second vertical (1080×1920, 9:16) video ad for **Kopia**, campus printing and delivery
 in Cameroon. Built with [Remotion](https://www.remotion.dev/) (React → MP4).
 Made for WhatsApp Status, TikTok, Instagram/Facebook Reels and Stories.
 
@@ -10,13 +10,14 @@ Rendered file: [`out/kopia-ad-9x16.mp4`](out/kopia-ad-9x16.mp4)
 
 | Time | Scene | On screen |
 |---|---|---|
-| 0:00–0:03 | Hook | "Encore la queue à l'imprimerie ?" — a queue of students, a spinning clock |
+| 0:00–0:03 | Hook | Real lecture-hall photo, "Encore la queue à l'imprimerie ?", clock sticker |
 | 0:03–0:06 | Logo reveal | Yellow wipe, K logo, "Imprimez vos documents. On les livre jusqu'en salle." |
 | 0:06–0:14 | Steps 1–2 | Realistic 3D phone (titanium frame, Dynamic Island, WhatsApp-style chat): zone → PDF (24 pages) → quote 680 XAF → pay with MTN MoMo / Orange Money |
 | 0:14–0:17 | Escrow | Coin drops into a lock: the money stays with Kopia until handover |
 | 0:17–0:22 | Steps 3–4 | Printer counts 24/24 pages, scooter travels from the shop to "Salle B12" |
 | 0:22–0:26 | Step 5 | Phone: "courier arrived" notification, PIN 4821 in the chat, "Livré !", 680 XAF split: shop 480 / courier 150 / Kopia 50 |
-| 0:26–0:31 | Call to action | Phone opens kopia.online (address typed, page loads, button tapped), "Dès 25 XAF" sticker, "Commandez sur kopia.online", referral offer |
+| 0:26–0:29 | Focus | Poster-style: "Concentrez-vous sur vos cours." + yellow band "Kopia s'occupe de l'impression." over a classroom photo |
+| 0:29–0:35 | Call to action | Phone opens kopia.online (address typed, page loads, button tapped), "Dès 25 XAF" sticker, "Commandez sur kopia.online", referral offer |
 
 ## Usage
 
@@ -51,6 +52,12 @@ Both tracks are generated offline, so there is nothing to license from a third p
 
 To use a real voice actor or a licensed track instead, replace the WAV files (same names) and
 re-render. If a recorded line runs longer, adjust its `from` / `durationInFrames` in `src/voiceover.json`.
+
+### Photos
+
+`public/photos/*.jpg` are classroom photos supplied for the draft (upscaled from small originals).
+**Before running the ad, replace them with photos you own or have licensed, and get consent from
+recognisable people.** Keep the same file names, ideally at 1500 px wide or more, and re-render.
 
 ### Credits
 - Voice: [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) (Apache-2.0), voice `ff_siwis`,

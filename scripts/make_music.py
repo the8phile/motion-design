@@ -14,12 +14,12 @@ from scipy.io import wavfile
 from scipy.signal import butter, fftconvolve, sosfilt
 
 SR = 44100
-LENGTH = 942 / 30  # video length in seconds
+LENGTH = 1039 / 30  # video length in seconds
 BPM = 108
 STEP = 60 / BPM / 4  # one 16th note
 BAR = STEP * 16
 DROP = 97 / 30  # beat drops on the logo reveal
-END_BAR = 12  # final hit, bars after the drop
+END_BAR = 13  # final hit, bars after the drop
 LEAD_FROM = 17.0
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

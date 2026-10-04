@@ -18,7 +18,7 @@ import soundfile as sf
 from kokoro_onnx import Kokoro
 
 FPS = 30
-VIDEO_FRAMES = 942
+VIDEO_FRAMES = 1039
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # (start frame, on-screen text, spoken text). Spoken text is spelled for
@@ -40,7 +40,9 @@ LINES = [
      "et un coursier vérifié vous l'apporte en salle."),
     (672, "Donnez votre code PIN. C'est livré !",
      "Donnez votre code pine. C'est livré !"),
-    (782, "Kopia ! Dès 25 francs la page. Commandez sur kopia.online",
+    (778, "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression.",
+     "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression."),
+    (876, "Kopia ! Dès 25 francs la page. Commandez sur kopia.online",
      "Kopia ! Dès vingt-cinq francs la page. Commandez sur kopia point online !"),
 ]
 

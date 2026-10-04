@@ -1,64 +1,37 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {ease, lerp, pop} from '../anim';
+import {ease, lerp, pop, range} from '../anim';
 import {C, FONT} from '../theme';
+import {PhotoBackdrop, PhotoCard} from '../components/Photo';
 
 const WORDS = ['Encore', 'la', 'queue', 'à', "l'imprimerie", '?'];
-
-const Person: React.FC<{i: number; f: number}> = ({i, f}) => {
-  const t = pop(f, 30 + i * 3, 14);
-  const bob = Math.sin((f + i * 7) / 6) * 4;
-  const color = i === 6 ? C.red : C.inkSoft;
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        transform: `translateY(${lerp(t, 200, 0) + bob}px)`,
-        opacity: t,
-      }}
-    >
-      <div style={{width: 62, height: 62, borderRadius: 999, background: color}} />
-      <div
-        style={{
-          width: 92,
-          height: 150,
-          marginTop: 10,
-          borderRadius: '46px 46px 16px 16px',
-          background: color,
-        }}
-      />
-    </div>
-  );
-};
+const PHOTO = 'photos/amphi-etudiants.jpg';
 
 const Clock: React.FC<{f: number}> = ({f}) => {
-  const t = pop(f, 45);
-  const minute = f * 24;
-  const hour = f * 2;
+  const t = pop(f, 30, 11);
   return (
     <div
       style={{
-        width: 190,
-        height: 190,
+        width: 170,
+        height: 170,
         borderRadius: 999,
-        border: `14px solid ${C.ink}`,
-        background: C.white,
+        border: `12px solid ${C.ink}`,
+        background: C.yellow,
         position: 'relative',
-        transform: `scale(${t})`,
+        boxShadow: '0 20px 40px rgba(0,0,0,0.35)',
+        transform: `scale(${t}) rotate(${lerp(t, -30, 8)}deg)`,
       }}
     >
-      {[hour, minute].map((deg, k) => (
+      {[f * 2, f * 24].map((deg, k) => (
         <div
           key={k}
           style={{
             position: 'absolute',
             left: '50%',
             bottom: '50%',
-            width: 12,
-            height: k === 0 ? 46 : 66,
-            marginLeft: -6,
+            width: 11,
+            height: k === 0 ? 40 : 58,
+            marginLeft: -5.5,
             borderRadius: 6,
             background: k === 0 ? C.ink : C.red,
             transformOrigin: '50% 100%',
@@ -72,35 +45,49 @@ const Clock: React.FC<{f: number}> = ({f}) => {
 
 export const Hook: React.FC = () => {
   const f = useCurrentFrame();
-  const sub = ease(f, 55, 18);
+  const zoom = range(f, [0, 105], [1, 1.12]);
+  const card = ease(f, 0, 20);
+  const sub = ease(f, 48, 18);
   return (
-    <AbsoluteFill
-      style={{
-        background: C.cream,
-        fontFamily: FONT,
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 70,
-      }}
-    >
-      <Clock f={f} />
+    <AbsoluteFill style={{fontFamily: FONT, background: C.ink}}>
+      <PhotoBackdrop src={PHOTO} zoom={zoom} />
+
       <div
         style={{
+          position: 'absolute',
+          top: 250,
+          left: 50,
+          opacity: card,
+          transform: `translateY(${lerp(card, 80, 0)}px) rotate(-2deg)`,
+        }}
+      >
+        <PhotoCard src={PHOTO} width={980} height={860} zoom={zoom} focus="55% 60%" />
+        <div style={{position: 'absolute', right: -20, top: -60}}>
+          <Clock f={f} />
+        </div>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          top: 1220,
+          left: 0,
+          right: 0,
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           gap: '0 26px',
-          padding: '0 80px',
-          fontSize: 112,
+          padding: '0 70px',
+          fontSize: 116,
           fontWeight: 800,
           letterSpacing: -3,
-          lineHeight: 1.1,
-          color: C.ink,
+          lineHeight: 1.08,
+          color: C.white,
+          textShadow: '0 6px 30px rgba(0,0,0,0.35)',
         }}
       >
         {WORDS.map((w, i) => {
-          const t = pop(f, i * 5, 11);
-          const hl = w === 'queue';
+          const t = pop(f, 6 + i * 5, 11);
           return (
             <span
               key={i}
@@ -108,8 +95,7 @@ export const Hook: React.FC = () => {
                 display: 'inline-block',
                 opacity: Math.min(1, t * 2),
                 transform: `translateY(${lerp(t, 60, 0)}px) scale(${lerp(t, 0.7, 1)})`,
-                color: hl ? C.red : C.ink,
-                position: 'relative',
+                color: w === 'queue' ? C.yellow : C.white,
               }}
             >
               {w}
@@ -117,20 +103,19 @@ export const Hook: React.FC = () => {
           );
         })}
       </div>
-      <div style={{display: 'flex', gap: 22, alignItems: 'flex-end'}}>
-        {Array.from({length: 7}).map((_, i) => (
-          <Person key={i} i={i} f={f} />
-        ))}
-      </div>
       <div
         style={{
-          fontSize: 44,
-          color: C.ink,
-          opacity: sub * 0.7,
+          position: 'absolute',
+          top: 1580,
+          width: '100%',
+          textAlign: 'center',
+          fontSize: 48,
+          color: C.white,
+          opacity: sub * 0.85,
           transform: `translateY(${lerp(sub, 30, 0)}px)`,
         }}
       >
-        …et le prochain cours commence.
+        …et le cours qui commence.
       </div>
     </AbsoluteFill>
   );

@@ -8,6 +8,7 @@ import {Escrow} from './scenes/Escrow';
 import {Deliver} from './scenes/Deliver';
 import {Pin} from './scenes/Pin';
 import {Cta} from './scenes/Cta';
+import {Focus} from './scenes/Focus';
 import voiceover from './voiceover.json';
 
 // Scene lengths in frames (30 fps). Each scene overlaps the previous by OVERLAP.
@@ -18,6 +19,7 @@ const SCENES: {C: React.FC; dur: number; fadeIn: boolean}[] = [
   {C: Escrow, dur: 110, fadeIn: true},
   {C: Deliver, dur: 160, fadeIn: true},
   {C: Pin, dur: 115, fadeIn: true},
+  {C: Focus, dur: 105, fadeIn: true},
   {C: Cta, dur: 170, fadeIn: true},
 ];
 const OVERLAP = 8;
