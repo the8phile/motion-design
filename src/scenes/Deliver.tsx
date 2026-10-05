@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Sequence, useCurrentFrame} from 'remotion';
-import {ease, lerp, pop, range} from '../anim';
+import {ease, lerp, pop, range, smooth} from '../anim';
 import {C, FONT} from '../theme';
 import {Caption} from '../components/Caption';
 
@@ -173,7 +173,7 @@ const Route: React.FC = () => {
 
 export const Deliver: React.FC = () => {
   const f = useCurrentFrame();
-  const out1 = 1 - ease(f, 70, 10);
+  const out1 = 1 - smooth(f, 68, 12);
   return (
     <AbsoluteFill style={{background: C.ink, fontFamily: FONT, alignItems: 'center'}}>
       <Sequence durationInFrames={82} layout="none">

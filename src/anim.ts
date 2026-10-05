@@ -18,3 +18,10 @@ export const lerp = (t: number, a: number, b: number) => a + (b - a) * t;
 
 export const range = (frame: number, input: number[], output: number[]) =>
   interpolate(frame, input, output, clamp);
+
+/** 0→1 with a symmetric ease-in-out, for crossfades and exits (no first-frame jump). */
+export const smooth = (frame: number, start: number, duration = 15) =>
+  interpolate(frame, [start, start + duration], [0, 1], {
+    ...clamp,
+    easing: Easing.inOut(Easing.cubic),
+  });

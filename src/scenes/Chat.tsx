@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Sequence, useCurrentFrame} from 'remotion';
-import {ease, lerp, pop, range} from '../anim';
+import {ease, lerp, pop, range, smooth} from '../anim';
 import {C, FONT, UI_FONT} from '../theme';
 import {Caption} from '../components/Caption';
 import {Bubble, ChatScreen, Phone} from '../components/Phone';
@@ -35,7 +35,7 @@ export const Chat: React.FC = () => {
   const enter = ease(f, 0, 22);
   const b = (start: number) => pop(f, start, 14);
   const press = range(f, [168, 174, 182], [0, 1, 0]);
-  const cap1Out = 1 - ease(f, 112, 10);
+  const cap1Out = 1 - smooth(f, 110, 12);
 
   // 3D camera move: swing in, idle drift, small turn when step 2 starts.
   const swing = pop(f, 0, 16);

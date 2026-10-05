@@ -1,12 +1,12 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {ease, lerp, pop} from '../anim';
+import {ease, lerp, pop, smooth} from '../anim';
 import {C, FONT} from '../theme';
 import {LogoMark} from '../components/Logo';
 
 export const Reveal: React.FC = () => {
   const f = useCurrentFrame();
-  const wipe = ease(f, 0, 20);
+  const wipe = smooth(f, 0, 22);
   const logo = pop(f, 8, 10);
   const l1 = ease(f, 34, 18);
   const l2 = ease(f, 44, 18);

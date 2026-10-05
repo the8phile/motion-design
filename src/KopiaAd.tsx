@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame} from 'remotion';
-import {ease} from './anim';
+import {smooth} from './anim';
 import {Hook} from './scenes/Hook';
 import {Reveal} from './scenes/Reveal';
 import {Chat} from './scenes/Chat';
@@ -26,9 +26,22 @@ const OVERLAP = 8;
 export const AD_DURATION =
   SCENES.reduce((sum, s) => sum + s.dur, 0) - OVERLAP * (SCENES.length - 1);
 
-const FadeIn: React.FC<{on: boolean; children: React.ReactNode}> = ({on, children}) => {
+/**
+ * Wraps a scene: an even crossfade in (with a slight settle from 104% scale)
+ * and a slow camera push-in for its whole length, so no frame is ever static.
+ */
+const SceneShell: React.FC<{fadeIn: boolean; dur: number; children: React.ReactNode}> = ({
+  fadeIn,
+  dur,
+  children,
+}) => {
   const f = useCurrentFrame();
-  return <AbsoluteFill style={{opacity: on ? ease(f, 0, OVERLAP) : 1}}>{children}</AbsoluteFill>;
+  const t = fadeIn ? smooth(f, 0, OVERLAP) : 1;
+  const push = 1 + 0.03 * (f / dur);
+  const settle = fadeIn ? 1.04 - 0.04 * t : 1;
+  return (
+    <AbsoluteFill style={{opacity: t, transform: `scale(${push * settle})`}}>{children}</AbsoluteFill>
+  );
 };
 
 export const KopiaAd: React.FC = () => {
@@ -42,9 +55,9 @@ export const KopiaAd: React.FC = () => {
         from += dur - OVERLAP;
         return (
           <Sequence key={i} from={start} durationInFrames={dur} premountFor={30}>
-            <FadeIn on={fadeIn}>
+            <SceneShell fadeIn={fadeIn} dur={dur}>
               <C />
-            </FadeIn>
+            </SceneShell>
           </Sequence>
         );
       })}

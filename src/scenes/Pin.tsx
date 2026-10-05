@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
-import {ease, lerp, pop, range} from '../anim';
+import {ease, lerp, pop, range, smooth} from '../anim';
 import {C, FONT, UI_FONT} from '../theme';
 import {Caption} from '../components/Caption';
 import {LogoMark} from '../components/Logo';
@@ -50,7 +50,7 @@ const Notification: React.FC<{t: number}> = ({t}) => (
 export const Pin: React.FC = () => {
   const f = useCurrentFrame();
   const enter = pop(f, 0, 15);
-  const notif = pop(f, 8, 13) * (1 - ease(f, 58, 10));
+  const notif = pop(f, 8, 13) * (1 - smooth(f, 56, 12));
   const done = ease(f, 46, 8);
 
   return (
