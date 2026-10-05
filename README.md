@@ -14,11 +14,11 @@ Rendered file: [`out/kopia-ad-9x16.mp4`](out/kopia-ad-9x16.mp4)
 | 0:03–0:06 | Logo reveal | Yellow wipe, K logo, "Imprimez vos documents. On les livre jusqu'en salle." |
 | 0:06–0:09 | Campus | Two campus photos, "Autour de votre campus", pins "Boutique partenaire" / "Livré jusqu'en salle" |
 | 0:09–0:16 | Steps 1–2 | Realistic 3D phone (titanium frame, Dynamic Island, WhatsApp-style chat): zone → PDF (24 pages) → quote 680 XAF → pay with MTN MoMo / Orange Money |
-| 0:14–0:17 | Escrow | Coin drops into a lock: the money stays with Kopia until handover |
-| 0:17–0:22 | Steps 3–4 | Printer counts 24/24 pages, scooter travels from the shop to "Salle B12" |
-| 0:22–0:26 | Step 5 | Phone: "courier arrived" notification, PIN 4821 in the chat, "Livré !", 680 XAF split: shop 480 / courier 150 / Kopia 50 |
-| 0:26–0:29 | Focus | Poster-style: "Concentrez-vous sur vos cours." + yellow band "Kopia s'occupe de l'impression." over a classroom photo |
-| 0:29–0:35 | Call to action | Phone opens kopia.online (address typed, page loads, button tapped), "Dès 25 XAF" sticker, "Commandez sur kopia.online", referral offer |
+| 0:16–0:20 | Escrow | Coin drops into a lock: the money stays with Kopia until handover |
+| 0:20–0:25 | Steps 3–4 | Printer counts 24/24 pages, scooter travels from the shop to "Salle B12" |
+| 0:25–0:28 | Step 5 | Phone: "courier arrived" notification, PIN 4821 in the chat, "Livré !", 680 XAF split: shop 480 / courier 150 / Kopia 50 |
+| 0:28–0:32 | Focus | Poster-style: "Concentrez-vous sur vos cours." + yellow band "Kopia s'occupe de l'impression." over a classroom photo |
+| 0:32–0:37 | Call to action | Phone opens kopia.online (address typed, page loads, button tapped), "Dès 25 XAF" sticker, "Commandez sur kopia.online", referral offer |
 
 ## Usage
 
