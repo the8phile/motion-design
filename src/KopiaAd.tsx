@@ -9,11 +9,13 @@ import {Deliver} from './scenes/Deliver';
 import {Pin} from './scenes/Pin';
 import {Cta} from './scenes/Cta';
 import {Focus} from './scenes/Focus';
+import {Campus} from './scenes/Campus';
 
 // Scene lengths in frames (30 fps). Each scene overlaps the previous by OVERLAP.
 const SCENES: {C: React.FC; dur: number; fadeIn: boolean}[] = [
   {C: Hook, dur: 105, fadeIn: false},
   {C: Reveal, dur: 90, fadeIn: false}, // has its own circle wipe
+  {C: Campus, dur: 90, fadeIn: true},
   {C: Chat, dur: 240, fadeIn: true},
   {C: Escrow, dur: 110, fadeIn: true},
   {C: Deliver, dur: 160, fadeIn: true},

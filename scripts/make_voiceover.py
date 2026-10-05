@@ -18,7 +18,7 @@ import soundfile as sf
 from kokoro_onnx import Kokoro
 
 FPS = 30
-VIDEO_FRAMES = 1039
+VIDEO_FRAMES = 1121
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # (start frame, on-screen text, spoken text). Spoken text is spelled for
@@ -28,21 +28,23 @@ LINES = [
      "Encore la queue à l'imprimerie… et le cours qui commence ?"),
     (100, "Avec Kopia, on imprime… et on livre jusqu'en salle !",
      "Avec Kopia, on imprime… et on livre jusqu'en salle !"),
-    (186, "Envoyez votre fichier depuis votre téléphone.",
+    (184, "Des boutiques partenaires, autour de votre campus.",
+     "Des boutiques partenaires, autour de votre campus."),
+    (268, "Envoyez votre fichier depuis votre téléphone.",
      "Envoyez votre fichier depuis votre téléphone."),
-    (305, "Payez par MoMo ou Orange Money.",
+    (387, "Payez par MoMo ou Orange Money.",
      "Payez par Momo, ou Orange Money."),
-    (416, "Votre argent reste bloqué jusqu'à la livraison.",
+    (498, "Votre argent reste bloqué jusqu'à la livraison.",
      "Votre argent reste bloqué, jusqu'à la livraison."),
-    (518, "Une boutique partenaire imprime…",
+    (600, "Une boutique partenaire imprime…",
      "Une boutique partenaire imprime…"),
-    (596, "…et un coursier vérifié vous l'apporte en salle.",
+    (678, "…et un coursier vérifié vous l'apporte en salle.",
      "et un coursier vérifié vous l'apporte en salle."),
-    (672, "Donnez votre code PIN. C'est livré !",
+    (754, "Donnez votre code PIN. C'est livré !",
      "Donnez votre code pine. C'est livré !"),
-    (778, "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression.",
+    (860, "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression.",
      "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression."),
-    (876, "Kopia ! Dès 25 francs la page. Commandez sur kopia.online",
+    (958, "Kopia ! Dès 25 francs la page. Commandez sur kopia.online",
      "Kopia ! Dès vingt-cinq francs la page. Commandez sur kopia point online !"),
 ]
 

@@ -13,49 +13,55 @@
   },
   {
     "file": "audio/vo/03.wav",
-    "from": 186,
+    "from": 184,
+    "durationInFrames": 73,
+    "text": "Des boutiques partenaires, autour de votre campus."
+  },
+  {
+    "file": "audio/vo/04.wav",
+    "from": 268,
     "durationInFrames": 71,
     "text": "Envoyez votre fichier depuis votre téléphone."
   },
   {
-    "file": "audio/vo/04.wav",
-    "from": 305,
+    "file": "audio/vo/05.wav",
+    "from": 387,
     "durationInFrames": 50,
     "text": "Payez par MoMo ou Orange Money."
   },
   {
-    "file": "audio/vo/05.wav",
-    "from": 416,
+    "file": "audio/vo/06.wav",
+    "from": 498,
     "durationInFrames": 74,
     "text": "Votre argent reste bloqué jusqu'à la livraison."
   },
   {
-    "file": "audio/vo/06.wav",
-    "from": 518,
+    "file": "audio/vo/07.wav",
+    "from": 600,
     "durationInFrames": 47,
     "text": "Une boutique partenaire imprime…"
   },
   {
-    "file": "audio/vo/07.wav",
-    "from": 596,
+    "file": "audio/vo/08.wav",
+    "from": 678,
     "durationInFrames": 64,
     "text": "…et un coursier vérifié vous l'apporte en salle."
   },
   {
-    "file": "audio/vo/08.wav",
-    "from": 672,
+    "file": "audio/vo/09.wav",
+    "from": 754,
     "durationInFrames": 53,
     "text": "Donnez votre code PIN. C'est livré !"
   },
   {
-    "file": "audio/vo/09.wav",
-    "from": 778,
+    "file": "audio/vo/10.wav",
+    "from": 860,
     "durationInFrames": 89,
     "text": "Concentrez-vous sur vos cours. Kopia s'occupe de l'impression."
   },
   {
-    "file": "audio/vo/10.wav",
-    "from": 876,
+    "file": "audio/vo/11.wav",
+    "from": 958,
     "durationInFrames": 112,
     "text": "Kopia ! Dès 25 francs la page. Commandez sur kopia.online"
   }

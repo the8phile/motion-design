@@ -14,7 +14,7 @@ from scipy.signal import butter, sosfilt
 
 SR = 44100
 FPS = 30
-FRAMES = 1039
+FRAMES = 1121
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rng = np.random.default_rng(11)
 
@@ -142,32 +142,45 @@ def sparkle():
 
 
 # ---------------------------------------------------------------- cues
-# (frame, sound, pan -1..1). Scene starts: Hook 0, Reveal 97, Chat 179,
-# Escrow 411, Deliver 513, Pin 665, Focus 772, CTA 869.
+# Scene start frames, matching SCENES in src/KopiaAd.tsx. Cue frames below are
+# relative to their scene, so changing a scene only means updating this table.
+S = dict(hook=0, reveal=97, campus=179, chat=261, escrow=493, deliver=595, pin=747, focus=854, cta=951)
+
+# (frame, sound, pan -1..1)
 CUES = []
-CUES += [(8 + i * 5, pop(800 + i * 60), 0) for i in range(6)]  # headline words
-CUES += [(32, pop(600, 200, 0.12, 0.5), 0.3)]  # clock sticker
-CUES += [(36 + i * 6, tick(i % 2 == 0), 0.3) for i in range(10)]  # ticking clock
-CUES += [(92, whoosh(0.5, 200, 5000, 0.5), 0), (107, pop(500, 120, 0.2, 0.7), 0), (131, sparkle(), 0)]
-CUES += [(176, whoosh(0.55, 150, 2500, 0.45), 0)]  # phone flies in
-CUES += [(193, msg_in(), -0.2), (211, msg_out(), 0.2), (227, msg_in(), -0.2), (245, msg_out(), 0.2),
-         (271, msg_in(), -0.2), (297, whoosh(0.4, 300, 1800, 0.25), 0), (313, msg_in(), -0.2),
-         (347, click(2000, 0.5), 0), (369, success(), 0)]
-CUES += [(425, whoosh(0.4, 3000, 600, 0.25), 0), (451, coin(), 0), (464, lock(), 0)]
-CUES += [(479 + i * 7, pop(700 + i * 120, 300, 0.08, 0.35), (-1) ** i * 0.3) for i in range(3)]
-CUES += [(513, pop(400, 150, 0.15, 0.5), 0), (525, printer(), 0)]
-CUES += [(525 + i * 10, paper(), 0.2) for i in range(5)]
-CUES += [(590, whoosh(0.4, 300, 3000, 0.35), 0), (595, pop(), -0.5), (601, pop(1000), 0.5),
-         (606, scooter(), 0), (655, msg_in(), 0.5)]
-CUES += [(663, whoosh(0.5, 150, 2500, 0.4), 0), (675, notification(), 0)]
-CUES += [(687 + i * 5, click(2800 - i * 150, 0.4), 0) for i in range(4)]
-CUES += [(711, success(), 0)]
-CUES += [(770, whoosh(0.5, 200, 4000, 0.4), 0), (802, whoosh(0.35, 800, 6000, 0.3), -0.4),
-         (818, whoosh(0.3, 600, 3000, 0.2), -0.3)]
-CUES += [(867, whoosh(0.55, 150, 2500, 0.45), 0), (870, pop(500, 150, 0.15, 0.5), 0)]
-CUES += [(875 + round(k * 20 / 12), click(3200 + (k % 3) * 300, 0.22), 0.1) for k in range(12)]
-CUES += [(911, pop(400, 100, 0.25, 0.7), 0.4), (911, sparkle(), 0.4), (921, pop(700, 200, 0.12, 0.5), 0),
-         (943, click(1800, 0.5), 0)]
+h, r, c = S["hook"], S["reveal"], S["campus"]
+CUES += [(h + 8 + i * 5, pop(800 + i * 60), 0) for i in range(6)]  # headline words
+CUES += [(h + 32, pop(600, 200, 0.12, 0.5), 0.3)]  # clock sticker
+CUES += [(h + 36 + i * 6, tick(i % 2 == 0), 0.3) for i in range(10)]  # ticking clock
+CUES += [(r - 5, whoosh(0.5, 200, 5000, 0.5), 0), (r + 10, pop(500, 120, 0.2, 0.7), 0), (r + 34, sparkle(), 0)]
+CUES += [(c - 3, whoosh(0.45, 300, 3000, 0.35), 0), (c + 4, pop(500, 150, 0.15, 0.45), -0.2),
+         (c + 20, whoosh(0.3, 600, 3500, 0.3), 0.5), (c + 22, pop(700, 250, 0.1, 0.4), 0.4),
+         (c + 32, pop(1000, 400, 0.08, 0.4), -0.3), (c + 42, pop(1100, 450, 0.08, 0.4), 0.3)]
+ch = S["chat"]
+CUES += [(ch - 3, whoosh(0.55, 150, 2500, 0.45), 0)]  # phone flies in
+CUES += [(ch + 14, msg_in(), -0.2), (ch + 32, msg_out(), 0.2), (ch + 48, msg_in(), -0.2), (ch + 66, msg_out(), 0.2),
+         (ch + 92, msg_in(), -0.2), (ch + 118, whoosh(0.4, 300, 1800, 0.25), 0), (ch + 134, msg_in(), -0.2),
+         (ch + 168, click(2000, 0.5), 0), (ch + 190, success(), 0)]
+e = S["escrow"]
+CUES += [(e + 14, whoosh(0.4, 3000, 600, 0.25), 0), (e + 40, coin(), 0), (e + 53, lock(), 0)]
+CUES += [(e + 68 + i * 7, pop(700 + i * 120, 300, 0.08, 0.35), (-1) ** i * 0.3) for i in range(3)]
+d = S["deliver"]
+CUES += [(d, pop(400, 150, 0.15, 0.5), 0), (d + 12, printer(), 0)]
+CUES += [(d + 12 + i * 10, paper(), 0.2) for i in range(5)]
+CUES += [(d + 77, whoosh(0.4, 300, 3000, 0.35), 0), (d + 82, pop(), -0.5), (d + 88, pop(1000), 0.5),
+         (d + 93, scooter(), 0), (d + 142, msg_in(), 0.5)]
+p = S["pin"]
+CUES += [(p - 2, whoosh(0.5, 150, 2500, 0.4), 0), (p + 10, notification(), 0)]
+CUES += [(p + 22 + i * 5, click(2800 - i * 150, 0.4), 0) for i in range(4)]
+CUES += [(p + 46, success(), 0)]
+fo = S["focus"]
+CUES += [(fo - 2, whoosh(0.5, 200, 4000, 0.4), 0), (fo + 30, whoosh(0.35, 800, 6000, 0.3), -0.4),
+         (fo + 46, whoosh(0.3, 600, 3000, 0.2), -0.3)]
+ct = S["cta"]
+CUES += [(ct - 2, whoosh(0.55, 150, 2500, 0.45), 0), (ct + 1, pop(500, 150, 0.15, 0.5), 0)]
+CUES += [(ct + 6 + round(k * 20 / 12), click(3200 + (k % 3) * 300, 0.22), 0.1) for k in range(12)]
+CUES += [(ct + 42, pop(400, 100, 0.25, 0.7), 0.4), (ct + 42, sparkle(), 0.4), (ct + 52, pop(700, 200, 0.12, 0.5), 0),
+         (ct + 74, click(1800, 0.5), 0)]
 
 n = int(FRAMES / FPS * SR)
 mix = np.zeros((n, 2))
