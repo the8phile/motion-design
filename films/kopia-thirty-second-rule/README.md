@@ -31,9 +31,11 @@ sh src/build.sh                                                                 
 
 export HYPERFRAMES_NO_TELEMETRY=1 DO_NOT_TRACK=1
 npx hyperframes browser ensure            # once per machine
-npx hyperframes@0.8.144 render --quality delivery --resolution portrait-4k --output renders/master-2160x3840.mp4
-ffmpeg -y -i renders/master-2160x3840.mp4 -i audio/mix.wav -map 0:v -map 1:a \
-  -vf "scale=1080:1920:flags=lanczos:out_range=tv:out_color_matrix=bt709,format=yuv420p" \
+# 1080×1920 master, 4 workers (a 4K master is better on a machine with a GPU: in this cloud container it ran at
+# ~12 s per frame on one worker, so the delivered film was rendered at 1080×1920)
+npx hyperframes@0.8.144 render --quality delivery --resolution portrait --workers 4 --output renders/master-1080x1920.mp4
+ffmpeg -y -i renders/master-1080x1920.mp4 -i audio/mix.wav -map 0:v -map 1:a \
+  -vf "scale=in_range=pc:out_range=tv:out_color_matrix=bt709,format=yuv420p" \
   -c:v libx264 -preset slow -crf 16 -profile:v high -g 30 -keyint_min 30 -sc_threshold 0 \
   -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
   -c:a aac -b:a 256k -ar 48000 -movflags +faststart -shortest renders/kopia-thirty-second-rule-1080x1920.mp4

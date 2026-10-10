@@ -41,7 +41,7 @@ svg text{font-kerning:normal}
 .strip.sm{font-size:50px}
 
 /* overlays */
-#grain{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none;mix-blend-mode:multiply;opacity:.16}
+#grain{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none;mix-blend-mode:multiply;opacity:.5;display:block}
 .fx{position:absolute;inset:0;pointer-events:none}
 </style>
 </head>
@@ -98,7 +98,7 @@ svg text{font-kerning:normal}
   <div class="clip fx" id="fxSleeve" data-start="23.8" data-duration="0.45" data-track-index="3"><svg class="art" viewBox="0 0 1080 1920" width="1080" height="1920"><g id="wipeSleeve"><rect x="0" y="-100" width="1500" height="2200" fill="url(#sleeveG)"/><rect x="0" y="-100" width="1500" height="2200" fill="#DCE6F5" opacity=".28"/></g></svg></div>
 
   <!-- paper grain over the story (not over the brand end card) -->
-  <div class="clip fx" id="grainClip" data-start="0" data-duration="34" data-track-index="4"><svg id="grain" viewBox="0 0 1080 1920" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#grainF)"/></svg></div>
+  <div class="clip fx" id="grainClip" data-start="0" data-duration="34" data-track-index="4"><img id="grain" src="assets/grain.png" alt="" width="1080" height="1920"></div>
 
   <!-- supers -->
   <div class="clip sup" id="sup1" data-start="11.25" data-duration="1.75" data-track-index="5"><div class="supbox"><span class="strip" id="sup1s">Great ideas. Messy pages.</span></div></div>
