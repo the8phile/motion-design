@@ -10,6 +10,12 @@ The upstream text below is kept as written by its author (Raphaël Aubry, Howsee
 and rules exactly** (brief → beat map → 4 stills → seek(t) engine → render → pops scan → audio → critique
 loop → delivery checklist), with these adaptations:
 
+**Works with `saas-motion-video`.** Both skills are installed and every new film uses both: the 7 stages and
+gates of `.claude/skills/saas-motion-video/SKILL.md` are the process, and this skill adds the craft and QA rules
+(stills first, no frozen frames, pops scan, critique loop, audio and encode). On a conflict, creative choices follow
+the saas kit's hard rules, and render/audio/QA follow this skill. Build with HyperFrames when it runs, else with this
+skill's `seek(t)` engine. Full rules in that skill's Project notes.
+
 **Whose film.** The owner here is not Raphaël / Howseen. Ignore everything personal to him: the Howseen
 palette, fonts and brand rules, `~/Desktop/Howseen AI/...` paths, the `howseen-video/INDEX.md` library and
 his film folders (`crave/`, `frame/`, `reel2/`, `h20/`, `launch20/`, `promo60/`, ...: they do not exist
