@@ -54,6 +54,8 @@ commit and push to the session branch; never rely on files only existing in the 
 - The upstream "no heredocs / no loops" sandbox rule (§6) does not apply here.
 - Final encode as in §3 (TV-range BT.709 yuv420p); also add `-g 30` so playback and scrubbing are smooth
   on phones (a past Kopia render "skipped" with long GOPs and full-range yuvj420p).
+  Keep phone deliveries at H.264 High@4.0 (`-level:v 4.0 -refs 3 -bf 2 -maxrate 7M -bufsize 14M`) and never use
+  `-tune animation` for 1080×1920: it set refs=10 / level 5.0 and "The Thirty-Second Rule" skipped on the user's phone.
 
 **Local changes to upstream files** (keep when updating from upstream): this section, the quoted
 `description`, the `EXE` browser fallback in the two render scripts, `requirements.txt`. Verified here on
