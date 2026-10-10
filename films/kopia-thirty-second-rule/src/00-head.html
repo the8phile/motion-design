@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Kopia · The Thirty-Second Rule</title>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/lines.js"></script>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-display:block;src:url("assets/fonts/poppins-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:600;font-display:block;src:url("assets/fonts/poppins-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:700;font-display:block;src:url("assets/fonts/poppins-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:800;font-display:block;src:url("assets/fonts/poppins-latin-800-normal.woff2") format("woff2")}
+@font-face{font-family:"Caveat";font-weight:500;font-display:block;src:url("assets/fonts/caveat-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"Caveat";font-weight:700;font-display:block;src:url("assets/fonts/caveat-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"Inter";font-weight:100 900;font-display:block;src:url("assets/fonts/Inter-Variable.woff2") format("woff2")}
+
+:root{
+  --blue:#0D5EF4; --red:#EF2F3C; --navy:#0B1B3A; --logo-white:#FFFFFF;
+  --paper:#FBF8F1; --cream:#F3EAD9; --ink:#2A2320; --near-white:#F7F5F0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#20160F}
+#root{position:relative;width:100%;height:100%;overflow:hidden;font-family:"Poppins",system-ui,sans-serif}
+.scene{position:absolute;inset:0;overflow:hidden}
+.scene svg.art{position:absolute;left:0;top:0;width:1080px;height:1920px;display:block}
+svg text{font-kerning:normal}
+
+/* subtitles: one caption track, centre-bottom of the safe zone */
+.cap{position:absolute;inset:0;pointer-events:none}
+.capbox{position:absolute;left:40px;width:1000px;top:1392px;display:flex;justify-content:center}
+.capbox span{display:block;text-align:center;font:600 44px/1.28 "Poppins",sans-serif;color:var(--near-white);
+  background:rgba(11,27,58,.86);padding:14px 30px 16px;border-radius:18px}
+
+/* supers: cut-paper strips near the top of the safe zone */
+.sup{position:absolute;inset:0;pointer-events:none}
+.supbox{position:absolute;left:70px;width:940px;top:236px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.strip{display:block;background:var(--cream);color:var(--navy);font:700 60px/1.12 "Poppins",sans-serif;letter-spacing:-.5px;
+  padding:18px 34px 20px;border-radius:6px;box-shadow:0 8px 0 rgba(20,12,6,.22);text-align:center;max-width:940px}
+.strip b{color:var(--blue);font-weight:700}
+.strip.sm{font-size:50px}
+
+/* overlays */
+#grain{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none;mix-blend-mode:multiply;opacity:.16}
+.fx{position:absolute;inset:0;pointer-events:none}
+</style>
+</head>
+<body>
+<svg id="defs" width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#24160C" flood-opacity=".32"/></filter>
+    <filter id="shS" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#24160C" flood-opacity=".30"/></filter>
+    <filter id="shL" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="16" flood-color="#1A0F08" flood-opacity=".38"/></filter>
+    <filter id="shN" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#02060F" flood-opacity=".55"/></filter>
+    <filter id="boil" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence id="boilT" type="fractalNoise" baseFrequency="0.021" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="chalk" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.2 1.55" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+    <filter id="soft4"><feGaussianBlur stdDeviation="4"/></filter>
+    <filter id="soft10" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="soft24" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="24"/></filter>
+    <filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="9"/><feColorMatrix type="matrix" values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .4  0 0 0 1.2 -.15"/></filter>
+    <radialGradient id="torchG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F6EFD9" stop-opacity=".95"/><stop offset=".55" stop-color="#E9DDBA" stop-opacity=".55"/><stop offset="1" stop-color="#E9DDBA" stop-opacity="0"/></radialGradient>
+    <radialGradient id="lampG" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#FFE3A8" stop-opacity=".75"/><stop offset="1" stop-color="#FFE3A8" stop-opacity="0"/></radialGradient>
+    <linearGradient id="leakG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD9A0" stop-opacity="0"/><stop offset=".5" stop-color="#FFE7BD" stop-opacity=".95"/><stop offset="1" stop-color="#FFD9A0" stop-opacity="0"/></linearGradient>
+    <linearGradient id="sleeveG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#EAF1FB" stop-opacity=".0"/><stop offset=".35" stop-color="#EAF1FB" stop-opacity=".55"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".85"/><stop offset=".65" stop-color="#EAF1FB" stop-opacity=".55"/><stop offset="1" stop-color="#EAF1FB" stop-opacity="0"/></linearGradient>
+  </defs>
+</svg>
+
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="37" data-fps="30">
+
+  <audio id="mix" src="audio/mix.wav" data-start="0" data-duration="37" data-track-index="0"></audio>
+
+  <!-- Scene 1 · The Mentor: Dr. Mbarga -->
+  <section class="clip scene" id="s01" data-start="0" data-duration="1.02" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s02" data-start="1" data-duration="3.1" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s03" data-start="3.85" data-duration="2.1" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s04" data-start="5.6" data-duration="1.4" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <!-- Scene 2 · The Protagonist: Nadège -->
+  <section class="clip scene" id="s05" data-start="7" data-duration="2" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s06" data-start="9" data-duration="2.3" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s07" data-start="11" data-duration="2.05" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s08" data-start="13" data-duration="2.1" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <!-- Scene 3 · The Kopia Brand Champion: Serge -->
+  <section class="clip scene" id="s09" data-start="15" data-duration="2" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s10" data-start="16.9" data-duration="2.6" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s11" data-start="19.5" data-duration="2.5" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s12" data-start="22" data-duration="2.15" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s13" data-start="24" data-duration="2.05" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <!-- Scene 4 · The Proud Supporter: Maman Ekobena -->
+  <section class="clip scene" id="s14" data-start="26" data-duration="2.05" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s15" data-start="28" data-duration="3" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <section class="clip scene" id="s16" data-start="31" data-duration="3" data-track-index="2"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+  <!-- End card -->
+  <section class="clip scene" id="s17" data-start="34" data-duration="3" data-track-index="1"><svg class="art" viewBox="0 0 1080 1920"></svg></section>
+
+  <!-- transition overlays -->
+  <div class="clip fx" id="fxLeak" data-start="10.8" data-duration="0.5" data-track-index="3"><svg class="art" viewBox="0 0 1080 1920" width="1080" height="1920"><rect id="leakRect" x="-1400" y="-200" width="1400" height="2400" fill="url(#leakG)"/></svg></div>
+  <div class="clip fx" id="fxCard" data-start="14.7" data-duration="0.75" data-track-index="3"><svg class="art" viewBox="0 0 1080 1920" width="1080" height="1920"><g id="flyCard"></g></svg></div>
+  <div class="clip fx" id="fxSleeve" data-start="23.8" data-duration="0.45" data-track-index="3"><svg class="art" viewBox="0 0 1080 1920" width="1080" height="1920"><g id="wipeSleeve"><rect x="0" y="-100" width="1500" height="2200" fill="url(#sleeveG)"/><rect x="0" y="-100" width="1500" height="2200" fill="#DCE6F5" opacity=".28"/></g></svg></div>
+
+  <!-- paper grain over the story (not over the brand end card) -->
+  <div class="clip fx" id="grainClip" data-start="0" data-duration="34" data-track-index="4"><svg id="grain" viewBox="0 0 1080 1920" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#grainF)"/></svg></div>
+
+  <!-- supers -->
+  <div class="clip sup" id="sup1" data-start="11.25" data-duration="1.75" data-track-index="5"><div class="supbox"><span class="strip" id="sup1s">Great ideas. Messy pages.</span></div></div>
+  <div class="clip sup" id="sup2" data-start="13.5" data-duration="1.45" data-track-index="5"><div class="supbox"><span class="strip" id="sup2s">Order on <b>kopia.online</b></span></div></div>
+  <div class="clip sup" id="sup3" data-start="17.3" data-duration="2.15" data-track-index="5"><div class="supbox"><span class="strip" id="sup3s">Handwritten → typed and formatted.</span></div></div>
+  <div class="clip sup" id="sup4" data-start="23.6" data-duration="2.35" data-track-index="5"><div class="supbox"><span class="strip sm" id="sup4a">Delivered to your classroom.</span><span class="strip sm" id="sup4b">Payment released at handover.</span></div></div>
+
+  <!-- subtitles (one caption track) -->
+  <div class="clip cap" id="cap1" data-start="1.2" data-duration="2.75" data-track-index="6"><div class="capbox"><span>Good ideas. And I could barely read them.</span></div></div>
+  <div class="clip cap" id="cap2" data-start="4.25" data-duration="2.6" data-track-index="6"><div class="capbox"><span>An investor gives you thirty seconds.</span></div></div>
+  <div class="clip cap" id="cap3" data-start="29.1" data-duration="1.45" data-track-index="6"><div class="capbox"><span>This is my stall?</span></div></div>
+  <div class="clip cap" id="cap4" data-start="32" data-duration="1.6" data-track-index="6"><div class="capbox"><span>Your first investor.</span></div></div>
+</div>

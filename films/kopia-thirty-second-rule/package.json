@@ -1,0 +1,11 @@
+{
+  "name": "kopia-thirty-second-rule",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "sh src/build.sh",
+    "dev": "HYPERFRAMES_NO_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes hyperframes@0.8.144 preview",
+    "check": "HYPERFRAMES_NO_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes hyperframes@0.8.144 check",
+    "render": "HYPERFRAMES_NO_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes hyperframes@0.8.144 render"
+  }
+}

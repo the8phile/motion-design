@@ -2,6 +2,7 @@
 
 Video commercial script · 37 s · 9:16 (1080×1920) · English · live action
 Written with the `kopia-story` skill (4-character framework). The source story is at the end of this file.
+Made as an animated cut-paper film (synthetic voices, original music): `films/kopia-thirty-second-rule/`.
 
 - **Cast:** Dr. Mbarga (50s, economics lecturer, pressed shirt, exacting) · Nadège (20, second-year student) ·
   Serge (30s, attendant at a Kopia partner print shop, unhurried, reading glasses) · Maman Ekobena (50s, sells
