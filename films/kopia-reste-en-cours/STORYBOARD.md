@@ -1,6 +1,6 @@
 # Storyboard — Kopia · Reste en cours
 
-Theme: 099 Overhead Desk · Format: 1080×1920 · Length: 15 s · Sound: music (120 BPM, warm marimba/kalimba bed) + warm tuned SFX
+Theme: 099 Overhead Desk · Format: 1080×1920 · Length: 15 s · Sound: French voice-over (5 lines, Kokoro ff_siwis) + music (120 BPM, warm marimba/kalimba bed, ducked 9 dB under the voice) + warm tuned SFX
 
 ## Message & tone
 - **Sentence:** I want to say "Restez en cours : vos impressions viennent à vous" in a warm, human tone, so the viewer feels relieved that printing no longer costs them a lecture.

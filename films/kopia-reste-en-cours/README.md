@@ -8,8 +8,15 @@ Made with the `saas-motion-video` kit (7 gated stages) + `motion-design` QA, bui
 
 ## Rebuild
 
+Voice-over (French, Kokoro `ff_siwis`): « Le cours commence… et votre chapitre n'est pas encore imprimé ? » ·
+« Restez en cours. » · « Une boutique partenaire imprime. Un coursier vérifié vous l'apporte en salle. » ·
+« Livré à votre place ! » · « Vos impressions viennent à vous. Kopia point online ! » (edit `LINES` in
+`audio/make_voiceover.py`; replace `audio/vo/*.wav` with a recorded voice actor and re-run `make_audio.py`).
+
 ```bash
-# audio (music + SFX + -14 LUFS mix); needs numpy, scipy, soundfile
+# voice-over (needs kokoro-onnx + the kokoro-v1.0 model files, see scripts/make_voiceover.py)
+python3 films/kopia-reste-en-cours/audio/make_voiceover.py --models path/to/kokoro
+# audio (voice + music + SFX, ducking, -14 LUFS mix); needs numpy, scipy, soundfile
 python3 films/kopia-reste-en-cours/audio/make_audio.py
 
 cd films/kopia-reste-en-cours

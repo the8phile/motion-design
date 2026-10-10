@@ -2,7 +2,7 @@
 
   python3 films/kopia-reste-en-cours/audio/make_audio.py
 
-Writes audio/music.wav, audio/sfx.wav and audio/mix.wav (48 kHz stereo, -14 LUFS, true peak <= -1.3 dBTP).
+Writes audio/music.wav, audio/sfx.wav and audio/mix.wav (with the voice-over from vo.json when present) (48 kHz stereo, -14 LUFS, true peak <= -1.3 dBTP).
 Beat grid: 120 BPM, beat = 0.5 s, bar = 2 s, drop on 4.0 s (frame 120) = the lecture-hall reveal.
 Key: C major (vi-IV-I-V: Am F C G), the same key as the kit's warm SFX so everything sits together.
 SFX use the saas-motion-kit timbres (tools/warm_sfx.py: marimba, woodblock, room).
@@ -198,7 +198,28 @@ for buf in (music, drums):
     buf[-fade:] *= np.linspace(1, 0, fade)
 music_st = stereo(room(music, 0.12)[:N], -0.1) + stereo(drums, 0.1)
 sfx_st = stereo(sfx)
-mix = music_st * 0.8 + sfx_st * 0.9
+
+# voice-over (make_voiceover.py): music ducks ~9 dB and SFX ~4 dB under every line
+vo = np.zeros(N)
+duck = np.zeros(N)
+vo_meta = os.path.join(HERE, "vo.json")
+if os.path.exists(vo_meta):
+    import soundfile as _sf
+    from scipy.signal import resample_poly
+    tt = np.arange(N) / SR
+    for line in json.load(open(vo_meta, encoding="utf-8")):
+        x, sr = _sf.read(os.path.join(HERE, line["file"]))
+        if x.ndim > 1:
+            x = x.mean(1)
+        if sr != SR:
+            g = np.gcd(SR, sr)
+            x = resample_poly(x, SR // g, sr // g)
+        put(vo, line["start"], x)
+        a, b = line["start"], line["start"] + line["duration"]
+        duck = np.maximum(duck, np.interp(tt, [a - 0.12, a, b, b + 0.2], [0, 1, 1, 0], left=0, right=0))
+music_gain = 10 ** (-9 * duck / 20)
+sfx_gain = 10 ** (-4 * duck / 20)
+mix = music_st * 0.8 * music_gain[:, None] + sfx_st * 0.9 * sfx_gain[:, None] + stereo(vo) * 1.15
 
 
 def write(path, x):

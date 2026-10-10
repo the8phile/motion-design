@@ -1,0 +1,32 @@
+[
+  {
+    "file": "vo/01.wav",
+    "start": 0.15,
+    "duration": 3.208,
+    "text": "Le cours commence… et votre chapitre n'est pas encore imprimé ?"
+  },
+  {
+    "file": "vo/02.wav",
+    "start": 4.05,
+    "duration": 1.0,
+    "text": "Restez en cours."
+  },
+  {
+    "file": "vo/03.wav",
+    "start": 5.6,
+    "duration": 3.947,
+    "text": "Une boutique partenaire imprime. Un coursier vérifié vous l'apporte en salle."
+  },
+  {
+    "file": "vo/04.wav",
+    "start": 10.0,
+    "duration": 1.224,
+    "text": "Livré à votre place !"
+  },
+  {
+    "file": "vo/05.wav",
+    "start": 11.85,
+    "duration": 2.605,
+    "text": "Vos impressions viennent à vous. Kopia point online !"
+  }
+]

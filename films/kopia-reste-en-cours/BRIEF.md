@@ -2,7 +2,7 @@
 workflow: general-video        # no capturable URL (kopia.online is blocked from this container), custom 15 s piece
 format: 1080x1920
 duration: 15s
-audio: music                   # music + warm tuned SFX, no voice-over
+audio: voice                   # French voice-over + music + warm tuned SFX (voice added 2026-10-10 at the user's request)
 loop: false
 theme: "099 Overhead Desk"
 ---
