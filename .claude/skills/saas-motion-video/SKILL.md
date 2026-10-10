@@ -32,10 +32,10 @@ these adaptations:
   and jsDelivr is blocked for curl too. Vendor libraries from npm into the film:
   `npm pack gsap@3.14.2` → copy `package/dist/gsap.min.js` to `assets/vendor/` and point the `<script>` there
   (same for Three.js). Fonts and images must be local files as well.
-- The HyperFrames **skills** (`/general-video`, `/product-launch-video`, `hyperframes-core`, ...) are NOT installed
-  here (the user has not approved adding them). Until they are, build from `playbook/05-build.md`, the examples in
-  `examples/`, and the CLI's own docs: `npx hyperframes docs`. Offer the install (`npx skills add heygen-com/hyperframes`,
-  Apache-2.0) when a film needs them.
+- The HyperFrames **skills** are installed in `.claude/skills/` (installed 2026-10-10 at the user's request:
+  `hyperframes` entry point, `general-video`, `product-launch-video`, `hyperframes-core`, `-animation`, `-audio`,
+  `-cli`, `-creative`, `media-use`, `music-to-video` and more). Use them at stage 5 exactly as the kit says;
+  their project notes (top of `.claude/skills/hyperframes/SKILL.md`) cover CDN vendoring and telemetry.
 - Optional tools that need paid keys the user has not provided: `tools/fal_shots.py` (FAL_KEY), HyperFrames
   describe/TTS/voice features (GEMINI_API_KEY, HEYGEN_API_KEY, ELEVENLABS_API_KEY). Use free local paths instead:
   Kokoro voice-over and synthesised music/SFX from the repo's `scripts/`.
