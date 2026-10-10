@@ -1,0 +1,10 @@
+@font-face{font-family:Poppins;font-weight:400;src:url(fonts/Poppins-400.woff2)}
+@font-face{font-family:Poppins;font-weight:600;src:url(fonts/Poppins-600.woff2)}
+@font-face{font-family:Poppins;font-weight:800;src:url(fonts/Poppins-800.woff2)}
+@font-face{font-family:Inter;font-weight:100 900;src:url(fonts/Inter-Variable.woff2)}
+@font-face{font-family:Mono;font-weight:400;src:url(fonts/jetbrains-mono-latin-400-normal.woff2)}
+@font-face{font-family:Mono;font-weight:600;src:url(fonts/jetbrains-mono-latin-600-normal.woff2)}
+@font-face{font-family:Bangers;src:url(fonts/bangers-latin-400-normal.woff2)}
+:root{--ink:#0E1A2B;--yellow:#FFC933;--green:#12A150;--red:#E8433A;--cream:#FFF8EC;--paper:#FBF7EE}
+html,body{margin:0}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden}

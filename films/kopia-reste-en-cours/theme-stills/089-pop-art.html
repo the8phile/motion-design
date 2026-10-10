@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="fonts.css">
+<style>
+#stage{background:#FBF4E4}
+.panel{position:absolute;border:12px solid #0E1A2B;overflow:hidden;background:#FFF8EC}
+.p1{left:50px;top:70px;width:956px;height:660px;transform:rotate(-1deg)}
+.p2{left:50px;top:780px;width:956px;height:1060px;transform:rotate(.8deg)}
+.dots{position:absolute;inset:0}
+.cap{position:absolute;left:-12px;top:-12px;background:#FFC933;border:8px solid #0E1A2B;padding:14px 26px;font:400 46px Bangers;letter-spacing:2px;color:#0E1A2B;z-index:5}
+.board{position:absolute;left:80px;top:90px;width:520px;height:250px;background:#1F5E46;border:10px solid #0E1A2B}
+.board i{position:absolute;height:8px;border-radius:4px;background:#E8F2EC;opacity:.8}
+.teacher{position:absolute;left:640px;top:120px}
+.desk{position:absolute;background:#B5793F;border:10px solid #0E1A2B}
+.balloon{position:absolute;background:#FFFFFF;border:9px solid #0E1A2B;border-radius:50%;font:400 54px/1.05 Bangers;letter-spacing:1.5px;color:#0E1A2B;display:flex;align-items:center;justify-content:center;text-align:center;z-index:6}
+.burst{position:absolute;left:520px;top:120px;width:470px;height:390px;z-index:7}
+.pack{position:absolute;left:330px;top:560px;width:380px;height:250px;background:#FFFFFF;border:9px solid #0E1A2B;transform:rotate(-8deg);box-shadow:16px 16px 0 #0E1A2B;z-index:4}
+.pack .t{position:absolute;left:24px;top:22px;font:800 34px Poppins;color:#0E1A2B}
+.pack i{position:absolute;left:24px;height:9px;border-radius:5px;background:#C9CFD8}
+.pack .tag{position:absolute;right:-9px;bottom:22px;background:#FFC933;border:7px solid #0E1A2B;font:400 34px Bangers;padding:2px 14px;letter-spacing:1px}
+.speed{position:absolute;height:9px;background:#0E1A2B;border-radius:5px}
+</style></head><body>
+<div id="stage">
+  <svg width="0" height="0" style="position:absolute"><defs>
+    <pattern id="dg" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="5.5" fill="#12A150" opacity=".45"/><circle cx="19" cy="19" r="5.5" fill="#12A150" opacity=".45"/></pattern>
+    <pattern id="dy" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="6" fill="#FFC933" opacity=".8"/><circle cx="19" cy="19" r="6" fill="#FFC933" opacity=".8"/></pattern>
+  </defs></svg>
+
+  <!-- Panel 1: the lecture goes on -->
+  <div class="panel p1">
+    <svg class="dots" width="956" height="660"><rect width="956" height="660" fill="url(#dg)"/></svg>
+    <div class="board"><i style="left:30px;top:40px;width:380px"></i><i style="left:30px;top:80px;width:300px"></i><i style="left:30px;top:120px;width:420px"></i><i style="left:30px;top:170px;width:220px"></i></div>
+    <svg class="teacher" width="200" height="420" viewBox="0 0 200 420">
+      <circle cx="100" cy="70" r="52" fill="#5A3520" stroke="#0E1A2B" stroke-width="10"/>
+      <path d="M30 420 L42 170 Q100 130 158 170 L170 420 Z" fill="#3E5C8A" stroke="#0E1A2B" stroke-width="10"/>
+      <path d="M150 190 L230 120" stroke="#0E1A2B" stroke-width="22" stroke-linecap="round"/>
+    </svg>
+    <!-- student from behind, front row -->
+    <svg style="position:absolute;left:250px;top:330px" width="460" height="340" viewBox="0 0 460 340">
+      <circle cx="230" cy="110" r="78" fill="#2E1B10" stroke="#0E1A2B" stroke-width="10"/>
+      <path d="M90 340 Q100 200 230 196 Q360 200 370 340 Z" fill="#E8433A" stroke="#0E1A2B" stroke-width="10"/>
+    </svg>
+    <div class="cap">AMPHI B, 10 H 02…</div>
+    <div class="balloon" style="left:640px;top:440px;width:300px;height:180px;font-size:44px">Et le cours<br>continue…</div>
+  </div>
+
+  <!-- Panel 2: the pack lands on the desk -->
+  <div class="panel p2">
+    <svg class="dots" width="956" height="1060"><rect width="956" height="1060" fill="url(#dy)"/></svg>
+    <div class="desk" style="left:-20px;right:-20px;top:620px;height:520px"></div>
+    <!-- student, three quarter, still seated, notebook open -->
+    <svg style="position:absolute;left:30px;top:250px;z-index:3" width="380" height="520" viewBox="0 0 380 520">
+      <circle cx="190" cy="140" r="96" fill="#6B3F24" stroke="#0E1A2B" stroke-width="10"/>
+      <path d="M118 96 Q190 20 262 96 Q240 60 190 58 Q140 60 118 96Z" fill="#1d120b"/>
+      <circle cx="158" cy="146" r="11" fill="#0E1A2B"/><circle cx="222" cy="146" r="11" fill="#0E1A2B"/>
+      <path d="M160 190 Q190 222 222 190" stroke="#0E1A2B" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M30 520 Q40 270 190 262 Q340 270 350 520 Z" fill="#E8433A" stroke="#0E1A2B" stroke-width="10"/>
+    </svg>
+    <div style="position:absolute;left:70px;top:700px;width:300px;height:190px;background:#FFFFFF;border:9px solid #0E1A2B;transform:rotate(4deg);z-index:2;background-image:repeating-linear-gradient(180deg,transparent 0 26px,#9fb6d1 26px 29px)"></div>
+    <!-- speed lines + the pack -->
+    <div class="speed" style="left:720px;top:600px;width:200px;transform:rotate(-8deg)"></div>
+    <div class="speed" style="left:740px;top:660px;width:160px;transform:rotate(-8deg)"></div>
+    <div class="speed" style="left:730px;top:720px;width:190px;transform:rotate(-8deg)"></div>
+    <div class="pack"><div class="t">DROIT CIVIL · 24 P</div>
+      <i style="top:86px;width:300px"></i><i style="top:116px;width:260px"></i><i style="top:146px;width:310px"></i><i style="top:176px;width:200px"></i>
+      <div class="tag">K KOPIA</div></div>
+    <svg class="burst" viewBox="0 0 470 390">
+      <polygon points="235,6 278,104 380,40 345,150 462,170 360,232 430,330 312,292 286,384 230,300 168,382 150,282 30,320 104,226 8,160 118,140 84,34 188,100" fill="#FFC933" stroke="#0E1A2B" stroke-width="10" stroke-linejoin="round"/>
+      <text x="236" y="236" text-anchor="middle" font-family="Bangers" font-size="112" fill="#E8433A" stroke="#0E1A2B" stroke-width="7" paint-order="stroke" letter-spacing="3">KOPIA !</text>
+    </svg>
+    <div class="balloon" style="left:420px;top:830px;width:500px;height:200px">J'AI MÊME PAS<br>BOUGÉ !</div>
+  </div>
+</div>
+</body></html>
