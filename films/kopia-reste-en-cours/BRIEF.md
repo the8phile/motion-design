@@ -33,9 +33,9 @@ student never leaves the seat.
 | Order on the phone (file + "Commander") | imaginary | the real portal UI can't be captured from here; simplified, true to the flow |
 | Printed course pack / stack of pages | imaginary | the product's physical output |
 | Delivery to the classroom + PIN handover | imaginary | one beat, no map (the first ad used a scooter route map) |
-| Kopia lockup + URL | real | Kopia "K" mark as used on the site, kopia.online |
+| Kopia lockup + URL | real | official Kopia logo files (brand guide), kopia.online |
 
-**Brand:** Kopia "K" mark (ink square, yellow K) · colours ink #0E1A2B, yellow #FFC933 (the one accent),
+**Brand (official, brand guide 2026-10-10):** logo files in `brand/` (blue and white versions, from the official JPGs) · KOPIA Blue #0D5EF4 · KOPIA Red #EF2F3C · White #FFFFFF · Navy #0B1B3A (dark bg) · Poppins Bold.
 green #12A150, red #E8433A, cream #FFF8EC · fonts Poppins 400/600/800, Inter (UI).
 
 **Do / Don't:**

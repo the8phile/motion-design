@@ -23,8 +23,16 @@ here, start from `scripts/` templates instead), Cartesia, "open -R / Finder", an
 schedule habits. Address the user, not Raphaël.
 
 **Kopia defaults** (campus printing and delivery in Cameroon, https://kopia.online):
-- Palette: ink `#0E1A2B`, yellow `#FFC933` (the ONE accent), green `#12A150`, red `#E8433A`, cream `#FFF8EC`.
-- Fonts: Poppins 400/600/800 (headlines) and Inter variable (UI) in `public/fonts/` (OFL); copy them into the film folder.
+- **Official brand (brand guide, received 2026-10-10, `brand/source/kopia-brand-guide.jpg`)**: KOPIA Blue `#0D5EF4`
+  (the ONE accent), KOPIA Red `#EF2F3C` (only as the mark's offset or a rare alert), White `#FFFFFF`, Navy `#0B1B3A`
+  (dark backgrounds, text). Typeface: Poppins **Bold** (700) for headlines. Do not use the old invented palette
+  (ink #0E1A2B, yellow #FFC933, green #12A150) in new work; the first Remotion ad in `src/` still uses it.
+- **Logo: official files only, never redraw the K.** `brand/kopia-logo-blue.png` (for light backgrounds),
+  `brand/kopia-logo-white.png` (for blue/navy backgrounds), `brand/kopia-mark-blue.png` / `brand/kopia-mark-white.png`
+  (the tile alone, red offset included). They are transparent cut-outs of the official JPGs made by
+  `scripts/brand_cutouts.py`; ask the user for the official SVGs and prefer them when they arrive. In HyperFrames,
+  repeated marks go in as CSS backgrounds, not many `<img>` tags (`duplicate_media_discovery_risk`).
+- Fonts: Poppins 400/600/700/800 and Inter variable (UI) in `public/fonts/` (OFL); copy them into the film folder.
 - Facts (put in `facts.md` with source "kopia.online"): from 25 XAF/page B&W, 100 XAF colour, -5 XAF/page duplex,
   200 XAF delivery to the classroom, typing 300 XAF/page, example 24 pages duplex = 680 XAF split shop 480 /
   courier 150 / Kopia 50, money held in escrow until the PIN handover, MTN MoMo + Orange Money via NotchPay,

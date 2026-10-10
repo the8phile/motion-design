@@ -46,7 +46,7 @@ these adaptations:
 the "no two films alike" rule remembers past films across sessions. The Kopia Remotion ad (Oct 2026) counts as a
 previous film: chat-phone UI, coin-in-lock escrow, scooter route map, PIN card, photo cards, circle wipe.
 
-**Kopia brand, facts and rights**: see the Kopia notes in `.claude/skills/motion-design/SKILL.md` (palette,
+**Kopia brand, facts and rights**: see the Kopia notes in `.claude/skills/motion-design/SKILL.md` (official logo files in `brand/`, the brand guide palette Blue #0D5EF4 / Red #EF2F3C / White / Navy #0B1B3A, Poppins Bold;
 Poppins/Inter, sourced prices, French 9:16 default, WhatsApp not live, photo-rights warnings). For Kopia the
 "truth source" in the brief is kopia.online plus what the user tells you.
 

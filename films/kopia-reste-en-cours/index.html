@@ -8,12 +8,13 @@
 <style>
 @font-face{font-family:"Poppins";font-weight:400;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2")}
 @font-face{font-family:"Poppins";font-weight:600;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:700;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2")}
 @font-face{font-family:"Poppins";font-weight:800;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2")}
 @font-face{font-family:"Inter";font-weight:100 900;font-display:block;src:url("assets/fonts/Inter-Variable.woff2") format("woff2")}
 @font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:block;src:url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"),url("assets/fonts/instrument-serif-latin-ext-400-italic.woff2") format("woff2")}
 
 :root{
-  --ink:#0E1A2B; --ink2:#1B2B44; --yellow:#FFC933; --green:#12A150; --cream:#FFF8EC;
+  --ink:#0B1B3A; --ink2:#1B2B44; --kblue:#0D5EF4; --kred:#EF2F3C; --white:#F7F9FF; --cream:#FFF8EC; --shirt:#2F7A72;
   --paper:#FFFDF6; --paper2:#F6F1E6; --blue:#1F3A6E; --wood1:#C48C57; --wood2:#B07743; --wood3:#A2693A;
   --skin:#7A4A2C; --skin2:#6B3F24;
   --sans:"Poppins",system-ui,sans-serif; --ui:"Inter",system-ui,sans-serif; --hand:"Instrument Serif",Georgia,serif;
@@ -56,15 +57,18 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#2A1A0E}
 #g1{left:36px;top:36px;border-right:0;border-bottom:0}#g2{right:36px;top:36px;border-left:0;border-bottom:0}
 #g3{left:36px;top:1460px;border-right:0;border-top:0}#g4{right:36px;top:1460px;border-left:0;border-top:0}
 #rig{position:absolute;left:130px;top:52px;font:600 24px/1 var(--ui);letter-spacing:2px;color:var(--cream);background:rgba(14,26,43,.55);padding:12px 18px;border-radius:8px}
-#rig b{color:#FFE08A;font-weight:600}
+#rig b{color:#9DBDFF;font-weight:600}
 
 #nb{position:absolute;left:24px;top:140px;width:700px;height:780px;transform:rotate(-3deg)}
 #tabs{position:absolute;left:470px;top:0;width:570px;height:780px}
 .tab{position:absolute;left:0;width:570px;height:92px;display:flex;align-items:center;justify-content:flex-start;padding-left:304px;
   background:var(--cream);border-radius:0 18px 18px 0;box-shadow:0 8px 12px rgba(40,20,5,.28);font:600 28px/1 var(--ui);color:var(--ink);gap:8px;white-space:nowrap}
-.tab .ck{color:var(--green);font-weight:800}
+.tab .ck{color:var(--kblue);font-weight:800}
 .clip{display:block}
-.tabclip{position:absolute;left:244px;top:21px;width:50px;height:50px;border-radius:12px;background:var(--yellow);color:var(--ink);font:800 32px/50px var(--sans);text-align:center;box-shadow:0 3px 5px rgba(0,0,0,.2)}
+.tabclip{position:absolute;left:244px;top:20px;width:52px;height:52px}
+.mk{display:block;width:100%;height:100%}
+.mkb{background:url("assets/brand/kopia-mark-blue.png") center/contain no-repeat}
+.mkw{background:url("assets/brand/kopia-mark-white.png") center/contain no-repeat}
 #pages{position:absolute;left:0;top:0;width:700px;height:780px;display:flex;filter:drop-shadow(0 18px 18px rgba(40,20,5,.35))}
 .pg{position:relative;flex:1;background:var(--paper);background-image:repeating-linear-gradient(180deg,transparent 0 56px,#C4D3E6 56px 58px)}
 .pg.l{border-radius:12px 0 0 12px;box-shadow:inset -20px 0 26px -18px rgba(0,0,0,.22)}
@@ -80,11 +84,11 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
 #penBody{position:absolute;left:0;top:0;width:330px;height:26px;border-radius:13px;background:linear-gradient(180deg,#26324a,#0E1A2B);transform-origin:0 50%}
 #arm{position:absolute;left:0;top:0;width:1000px;height:130px}
 #arm .fore{position:absolute;right:0;top:5px;height:120px;width:56%;background:#7A4A2C;border-radius:60px}
-#arm .sleeve{position:absolute;left:0;top:-12px;height:154px;width:52%;background:#E8433A;border-radius:0 26px 26px 0}
+#arm .sleeve{position:absolute;left:0;top:-12px;height:154px;width:52%;background:var(--shirt);border-radius:0 26px 26px 0}
 #phone{z-index:6}#ktag{z-index:8}#pen{z-index:5}#arm{z-index:4}
 
-#ktag{position:absolute;left:0;top:0;width:190px;height:96px;border-radius:16px;background:var(--yellow);display:flex;align-items:center;gap:12px;padding:0 16px;font:800 34px/1 var(--sans);color:var(--ink)}
-.km{width:62px;height:62px;border-radius:15px;background:var(--ink);color:var(--yellow);font:800 42px/62px var(--sans);text-align:center;flex:none}
+#ktag{position:absolute;left:0;top:0;width:190px;height:190px;filter:drop-shadow(0 14px 14px rgba(40,20,5,.35))}
+.km{width:62px;height:62px;flex:none;display:block}
 
 #phone{position:absolute;left:0;top:0;width:300px;height:620px;border-radius:50px;background:#11161f;padding:13px;box-shadow:0 26px 30px rgba(40,20,5,.42)}
 #scr{position:relative;width:274px;height:594px;border-radius:38px;overflow:hidden;background:#1B2536}
@@ -96,18 +100,18 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
 #cal small{display:block;font-weight:500;color:#475163;font-size:14px}
 #order{position:absolute;inset:0;background:#F6F4EF;padding:48px 16px 0;font-family:var(--ui);color:var(--ink)}
 .oh{display:flex;align-items:center;gap:8px;font:700 17px/1 var(--ui)}
-.oh .km{width:34px;height:34px;border-radius:9px;font-size:22px;line-height:34px}
+.oh .km{width:36px;height:36px}
 .oh span{font-weight:500;color:#5a6577;font-size:14px;margin-left:auto}
 .file{margin-top:20px;background:#FFFEFA;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .pdf{width:44px;height:54px;border-radius:8px;background:#B42A22;color:#FFF8EC;font:800 13px/54px var(--ui);text-align:center;flex:none}
 .file b{display:block;font-size:16px}.file small{font-size:13px;color:#5a6577}
 .rowx{display:flex;justify-content:space-between;font:500 15px/1 var(--ui);margin-top:16px;padding:0 4px}
 .tot{display:flex;justify-content:space-between;font:700 19px/1 var(--ui);margin-top:18px;padding:14px 4px 0;border-top:1px solid #E2DED4}
-#cmd{margin-top:22px;height:58px;border-radius:16px;background:var(--yellow);font:700 20px/58px var(--ui);text-align:center;color:var(--ink);position:relative;overflow:hidden}
-#sent{position:absolute;inset:0;background:#0B7A3B;color:#F3FFF6;font:700 19px/58px var(--ui);text-align:center;opacity:0}
+#cmd{margin-top:22px;height:58px;border-radius:16px;background:var(--kblue);font:700 20px/58px var(--ui);text-align:center;color:var(--white);position:relative;overflow:hidden}
+#sent{position:absolute;inset:0;background:var(--ink);color:var(--white);font:700 19px/58px var(--ui);text-align:center;opacity:0}
 .ex{margin-top:12px;text-align:center;font:600 12px/1 var(--ui);color:#5A6475;letter-spacing:1px}
 #notif{position:absolute;left:10px;right:10px;top:46px;background:rgba(250,248,242,.97);border-radius:20px;padding:12px;display:flex;gap:10px;align-items:center;font:700 17px/1.25 var(--ui);color:var(--ink);box-shadow:0 8px 18px rgba(0,0,0,.3);z-index:8}
-#notif .km{width:40px;height:40px;border-radius:10px;font-size:26px;line-height:40px}
+#notif .km{width:42px;height:42px}
 #notif small{display:block;font-weight:500;font-size:13px;color:#5a6577}
 
 #lhand{position:absolute;left:0;top:0;overflow:visible}
@@ -116,29 +120,28 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
 .sh{position:absolute;left:0;top:0;width:470px;height:640px;border-radius:6px;background:#FFFEFA;box-shadow:0 2px 3px rgba(0,0,0,.12)}
 #s3{background:#F2EEE5;left:14px;top:14px}#s2{background:#F8F5EE;left:7px;top:7px}
 #s1{padding:56px 48px;box-shadow:0 30px 34px rgba(40,20,5,.36)}
-#s1 h4{font:800 40px/1 var(--sans);color:var(--ink);letter-spacing:-.5px}
+#s1 h4{font:700 40px/1 var(--sans);color:var(--ink);letter-spacing:-.5px}
 #s1 p{font:400 24px/1 var(--sans);color:#5a6577;margin:12px 0 34px}
 .ln{height:12px;border-radius:6px;background:#DDE2EA;margin-bottom:22px}
 .staple{position:absolute;left:28px;top:24px;width:46px;height:8px;border-radius:3px;background:#9aa3b0;transform:rotate(-38deg)}
-#packTag{position:absolute;right:-14px;bottom:70px;width:184px;height:60px;background:var(--yellow);border-radius:10px 0 0 10px;display:flex;align-items:center;gap:10px;padding-left:12px;font:800 26px/1 var(--sans);color:var(--ink);box-shadow:0 6px 10px rgba(0,0,0,.18)}
-#packTag .km{width:40px;height:40px;border-radius:10px;font-size:26px;line-height:40px}
+#packTag{position:absolute;right:-14px;bottom:70px;width:184px;height:60px;background:var(--kblue);border-radius:10px 0 0 10px;display:flex;align-items:center;gap:10px;padding-left:10px;font:700 26px/1 var(--sans);color:var(--white);box-shadow:0 6px 10px rgba(0,0,0,.18)}
+#packTag .km{width:42px;height:42px}
 #chand{position:absolute;left:0;top:0;overflow:visible}
 
 /* ---------- screen-space ---------- */
 #say{position:absolute;left:0;top:250px;width:1080px;display:flex;justify-content:center}
-#sayPill{background:var(--ink);color:var(--cream);font:800 92px/1 var(--sans);letter-spacing:-2px;padding:36px 56px;border-radius:30px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.4)}
+#sayPill{background:var(--ink);color:var(--white);font:700 92px/1 var(--sans);letter-spacing:-2px;padding:36px 56px;border-radius:30px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.4)}
 #sayIn{display:block}
 
-#cta{position:absolute;left:0;top:0;width:1080px;height:1920px;background:var(--yellow);clip-path:inset(1400px 500px 470px 404px round 10px);opacity:0}
+#cta{position:absolute;left:0;top:0;width:1080px;height:1920px;background:var(--kblue);clip-path:inset(1400px 500px 470px 404px round 10px);opacity:0}
 #ctaIn{position:absolute;left:0;top:0;width:1080px;height:1920px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-#lock2{display:flex;align-items:center;gap:26px}
-#lock2 .km{width:130px;height:130px;border-radius:32px;font-size:90px;line-height:130px}
-#lock2 span{font:800 120px/1 var(--sans);color:var(--ink);letter-spacing:2px}
+#lock2{width:700px}
+#lock2 img{display:block;width:100%}
 .hl{margin-top:110px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .lineM{overflow:hidden;padding:0 10px}
-.w{display:inline-block;font:800 104px/1.12 var(--sans);color:var(--ink);letter-spacing:-3px}
-#url{margin-top:100px;background:var(--ink);color:var(--yellow);font:800 64px/1 var(--sans);padding:34px 64px;border-radius:999px}
-#fine{margin-top:44px;font:600 34px/1.3 var(--ui);color:rgba(14,26,43,.78);text-align:center}
+.w{display:inline-block;font:700 100px/1.14 var(--sans);color:var(--white);letter-spacing:-2px}
+#url{margin-top:100px;background:var(--white);color:var(--kblue);font:700 64px/1 var(--sans);padding:34px 64px;border-radius:999px}
+#fine{margin-top:44px;font:600 34px/1.3 var(--ui);color:rgba(247,249,255,.9);text-align:center}
 </style>
 </head>
 <body>
@@ -159,9 +162,9 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
 
         <div id="nb">
           <div id="tabs">
-            <div class="tab" id="tab1" style="top:250px"><span class="ck">✓</span>Imprimé<div class="tabclip">K</div></div>
-            <div class="tab" id="tab2" style="top:356px">Coursier vérifié<div class="tabclip">K</div></div>
-            <div class="tab" id="tab3" style="top:462px">À la porte<div class="tabclip">K</div></div>
+            <div class="tab" id="tab1" style="top:250px"><span class="ck">✓</span>Imprimé<div class="tabclip"><div class="mk mkb"></div></div></div>
+            <div class="tab" id="tab2" style="top:356px">Coursier vérifié<div class="tabclip"><div class="mk mkb"></div></div></div>
+            <div class="tab" id="tab3" style="top:462px">À la porte<div class="tabclip"><div class="mk mkb"></div></div></div>
           </div>
           <div id="pages">
             <div class="pg l"><h3>Droit civil</h3></div>
@@ -190,7 +193,7 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
             <div class="ln" style="width:92%"></div><div class="ln" style="width:84%"></div><div class="ln" style="width:96%"></div>
             <div class="ln" style="width:70%"></div><div class="ln" style="width:88%;margin-top:40px"></div><div class="ln" style="width:94%"></div>
             <div class="ln" style="width:60%"></div><div class="ln" style="width:86%"></div>
-            <div id="packTag"><div class="km">K</div>kopia</div>
+            <div id="packTag"><div class="km mkw"></div>kopia</div>
           </div>
         </div>
 
@@ -199,7 +202,7 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
           <div id="lock"><div class="t" id="clock">09:58</div><div class="d">Cours à 10:00</div>
             <div id="cal">Droit civil · 10:00<small>Amphi B · apporter le chap. 4</small></div></div>
           <div id="order">
-            <div class="oh" data-layout-allow-overlap><div class="km">K</div>Kopia<span data-layout-allow-overlap>kopia.online</span></div>
+            <div class="oh" data-layout-allow-overlap><div class="km mkb"></div>Kopia<span data-layout-allow-overlap>kopia.online</span></div>
             <div class="file"><div class="pdf">PDF</div><div><b>chapitre-4.pdf</b><small>24 pages · recto-verso</small></div></div>
             <div class="rowx"><span>Impression</span><span>480 XAF</span></div>
             <div class="rowx"><span>Livraison en salle</span><span>200 XAF</span></div>
@@ -207,10 +210,10 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
             <div id="cmd">Commander<div id="sent">Commande envoyée ✓</div></div>
             <div class="ex">EXEMPLE</div>
           </div>
-          <div id="notif" data-layout-allow-occlusion data-layout-allow-overlap><div class="km">K</div><div>Livré à votre place<small>Kopia · maintenant</small></div></div>
+          <div id="notif" data-layout-allow-occlusion data-layout-allow-overlap><div class="km mkb"></div><div>Livré à votre place<small>Kopia · maintenant</small></div></div>
         </div></div>
 
-        <div id="ktag"><div class="km">K</div>kopia</div>
+        <div id="ktag"><div class="mk mkb"></div></div>
 
         <!-- student's writing arm: rotated/stretched every time the pen moves, always reaching the student at the bottom edge -->
         <div id="arm"><div class="fore"></div><div class="sleeve"></div></div>
@@ -227,15 +230,15 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
 
         <!-- student's left hand that slides the phone, from the bottom edge -->
         <svg id="lhand" width="10" height="10">
-          <path d="M-60 260 L60 0 L170 0 L150 300 Z" fill="#E8433A"/>
+          <path d="M-60 260 L60 0 L170 0 L150 300 Z" fill="#2F7A72"/>
           <path d="M50 10 C40 -60 60 -120 100 -140 L150 -140 C180 -110 186 -50 170 10 Z" fill="#7A4A2C"/>
           <rect id="thumb" x="150" y="-170" width="34" height="120" rx="17" fill="#6B3F24" transform="rotate(-24 167 -110)"/>
         </svg>
 
         <!-- courier's hand + green sleeve, from the top edge -->
         <svg id="chand" width="10" height="10">
-          <path d="M-90 -900 L90 -900 L80 -40 L-80 -30 Z" fill="#12A150"/>
-          <path d="M-90 -900 L-64 -900 L-56 -34 L-80 -30 Z" fill="#0E8A43"/>
+          <path d="M-90 -900 L90 -900 L80 -40 L-80 -30 Z" fill="#0D5EF4"/>
+          <path d="M-90 -900 L-64 -900 L-56 -34 L-80 -30 Z" fill="#0A4ED0"/>
           <rect x="-84" y="-60" width="168" height="44" rx="16" fill="#0E1A2B"/>
           <path d="M-72 -22 C-84 60 -74 130 -38 180 L56 190 C86 130 94 60 78 -22 Z" fill="#7A4A2C"/>
           <rect x="-58" y="150" width="30" height="150" rx="15" fill="#7A4A2C"/>
@@ -251,7 +254,7 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
   <div id="say"><div id="sayPill"><span id="sayIn" data-layout-allow-overlap>Restez en cours.</span></div></div>
 
   <div id="cta" data-layout-allow-occlusion><div id="ctaIn">
-    <div id="lock2"><div class="km">K</div><span>kopia</span></div>
+    <div id="lock2"><img src="assets/brand/kopia-logo-white.png" alt="Kopia"></div>
     <div class="hl">
       <div class="lineM"><span class="w" id="w1">Vos impressions</span></div>
       <div class="lineM"><span class="w" id="w2">viennent à vous.</span></div>
@@ -290,7 +293,7 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
   }
   cells.innerHTML = html;
   const myCell = document.getElementById("mycell");
-  myCell.insertAdjacentHTML("beforeend", `<div class="shoulders" data-layout-ignore style="background:#E8433A"></div><div class="head" data-layout-ignore style="background:#1d120b"></div>`);
+  myCell.insertAdjacentHTML("beforeend", `<div class="shoulders" data-layout-ignore style="background:#2F7A72"></div><div class="head" data-layout-ignore style="background:#1d120b"></div>`);
   const board = document.getElementById("board");
   let b = "";
   for (let i = 0; i < 9; i++) b += `<i style="left:${120 + (i % 2) * 60}px;top:${90 + i * 64}px;width:${900 + rnd() * 1300}px"></i>`;
@@ -378,7 +381,7 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
 
   // ---------- 4 · proof (5.5–11.5 s): margin tabs while the notes keep growing ----------
   // object carry: the K tag slides to the notebook margin and becomes the first tab clip
-  tl.to("#ktag", { x: 683, y: 382, scale: 0.42, rotation: -3, duration: 0.45, ease: "power2.inOut" }, 5.5);
+  tl.to("#ktag", { x: 669, y: 341, scale: 0.27, rotation: -3, duration: 0.45, ease: "power2.inOut" }, 5.5);
   tl.to("#ktag", { opacity: 0, duration: 0.08, ease: "none" }, 5.98);
   const lineT = [5.6, 6.4, 7.2, 8.0, 8.8, 9.6, 10.4];
   notes.forEach((p, i) => {
@@ -403,7 +406,7 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
   // slow push while the proof plays
   tl.to("#cam", { scale: 1.04, duration: 5.4, ease: "sine.inOut" }, 5.65);
 
-  // ---------- 5 · CTA (11.5–15 s): the tag's yellow becomes the whole frame ----------
+  // ---------- 5 · CTA (11.5–15 s): the tag's Kopia blue becomes the whole frame ----------
   tl.to("#cam", { scale: 1.22, x: 11, y: -123, duration: 0.6, ease: "power2.in" }, 11.05);
   tl.set("#cta", { opacity: 1 }, 11.38);
   tl.to("#cta", { clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.5, ease: "power3.inOut" }, 11.4);
