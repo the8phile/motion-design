@@ -3,3 +3,6 @@ out/*
 !out/kopia-ad-9x16.mp4
 __pycache__/
 .references/
+films/*/snapshots/
+films/*/renders/*
+!films/*/renders/*-1080x1920.mp4
