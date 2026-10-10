@@ -36,7 +36,7 @@ through all four scenes so the before/after lands in Scene 4.
 ## Writing rules and tone
 
 - **Tone:** inspiring, vivid and cinematic, with sensory detail: the hum and rhythmic clack of modern
-  printers, the warmth of freshly printed paper, the snap of a binding, the smell of toner, crisp edges
+  printers, the warmth of freshly printed paper, the soft knock of a stack squared on the counter, crisp edges
   under a fingertip.
 - **Brand messaging:** Kopia is always fast, reliable, accessible and high-quality: the bridge between hard
   work and top-tier success. Show it through action (the attendant's calm, the clean output) rather than
@@ -44,7 +44,7 @@ through all four scenes so the before/after lands in Scene 4.
 - **Truth:** the drama is fiction, the brand claims are not. Any concrete claim about Kopia (prices, services,
   payment, delivery) must come from the fact list below. Show speed without inventing durations ("before
   the lecture ended", not "in 12 minutes"), and never invent coverage, partner schools, awards or customer
-  numbers.
+  numbers, and don't promise services that aren't listed (binding, laminating, design work).
 - **Setting:** by default a university campus in Cameroon (Kopia's market); use names and places that fit.
   Other settings are fine when the user asks for them.
 - **Language:** write in the language of the request. Kopia films are in French by default (English for
