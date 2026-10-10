@@ -1,0 +1,13 @@
+{
+  "films": [
+    {
+      "name": "kopia-ad-remotion (first Kopia ad, src/)",
+      "date": "2026-10-05",
+      "themes": [],
+      "transitions": ["circle-wipe", "crossfade"],
+      "new_components": ["chat-phone", "coin-lock-escrow", "scooter-route-map", "pin-digit-card", "photo-cards", "price-sticker", "browser-typing"],
+      "entrances": ["word-pop", "rise-fade", "phone-swing-in"],
+      "eases": ["spring", "expo.out", "cubic.inOut"]
+    }
+  ]
+}

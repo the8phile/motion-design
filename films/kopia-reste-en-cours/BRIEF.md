@@ -4,7 +4,7 @@ format: 1080x1920
 duration: 15s
 audio: music                   # music + warm tuned SFX, no voice-over
 loop: false
-theme: "TBD at stage 3"
+theme: "099 Overhead Desk"
 ---
 
 # Kopia — Reste en cours
