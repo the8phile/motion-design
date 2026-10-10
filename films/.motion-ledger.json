@@ -57,6 +57,72 @@
         "power2.out",
         "sine.inOut"
       ]
+    },
+    {
+      "name": "kopia-thirty-second-rule",
+      "date": "2026-10-10",
+      "themes": [
+        "087"
+      ],
+      "transitions": [
+        "match-cut",
+        "whip-pan",
+        "rack-focus",
+        "hard-cut",
+        "time-lapse",
+        "light-leak",
+        "push-in",
+        "screen-handoff",
+        "push-through",
+        "match-cut",
+        "beat-cut",
+        "sleeve-wipe",
+        "copy-carry",
+        "push-in",
+        "rack-focus",
+        "beat-cut"
+      ],
+      "new_components": [
+        "print-seam"
+      ],
+      "entrances": [
+        "slam-drop",
+        "push-in-reveal",
+        "chalk-stroke",
+        "whip-in",
+        "lights-out",
+        "stack-pile",
+        "fan-spread",
+        "shutter-flash",
+        "slide-in",
+        "print-seam-sweep",
+        "sheet-feed",
+        "knock-square",
+        "hand-off",
+        "golden-rise",
+        "wipe-and-lift",
+        "box-open",
+        "tile-drop"
+      ],
+      "eases": [
+        "power4.in",
+        "sine.inOut",
+        "power1.inOut",
+        "expo.out",
+        "steps(1)",
+        "power2.out",
+        "circ.out",
+        "power3.out",
+        "power2.inOut",
+        "steps(12)",
+        "expo.out",
+        "power2.out",
+        "sine.out",
+        "power1.out",
+        "sine.inOut",
+        "power3.out",
+        "power4.out"
+      ]
     }
   ]
 }

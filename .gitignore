@@ -6,3 +6,4 @@ __pycache__/
 films/*/snapshots/
 films/*/renders/*
 !films/*/renders/*-1080x1920.mp4
+films/*/renders/master-*

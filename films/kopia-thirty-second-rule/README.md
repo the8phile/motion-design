@@ -4,7 +4,7 @@ The commercial script in `stories/the-thirty-second-rule.md`, made as an animate
 Made with the `saas-motion-video` kit (run end to end at the user's request, recommended option at each gate) +
 `motion-design` QA, built in HyperFrames.
 
-- Delivery file: `renders/kopia-thirty-second-rule-1080x1920.mp4` (H.264, TV-range BT.709, keyframe every 1 s, AAC, -14 LUFS)
+- Delivery file: `renders/kopia-thirty-second-rule-1080x1920.mp4` (H.264, TV-range BT.709, keyframe every 1 s, AAC, -14.5 LUFS / -1.3 dBTP, 28.5 MiB)
 - Brief: `BRIEF.md` · Facts on screen: `facts.md` · Storyboard, ledger and the seven questions: `STORYBOARD.md`
 - Theme: 087 Cut-Paper Title Sequence (adapted) · New component: the print-seam · Motif: the second copy
 
@@ -36,9 +36,10 @@ npx hyperframes browser ensure            # once per machine
 npx hyperframes@0.8.144 render --quality delivery --resolution portrait --workers 4 --output renders/master-1080x1920.mp4
 ffmpeg -y -i renders/master-1080x1920.mp4 -i audio/mix.wav -map 0:v -map 1:a \
   -vf "scale=in_range=pc:out_range=tv:out_color_matrix=bt709,format=yuv420p" \
-  -c:v libx264 -preset slow -crf 16 -profile:v high -g 30 -keyint_min 30 -sc_threshold 0 \
+  -c:v libx264 -preset slow -crf 20 -tune animation -profile:v high -g 30 -keyint_min 30 -sc_threshold 0 \
   -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
-  -c:a aac -b:a 256k -ar 48000 -movflags +faststart -shortest renders/kopia-thirty-second-rule-1080x1920.mp4
+  -af "volume=-0.5dB" -c:a aac -b:a 192k -ar 48000 -movflags +faststart -shortest renders/kopia-thirty-second-rule-1080x1920.mp4
+# CRF 20 keeps the file under 30 MiB (28.5 MiB) for messaging apps; CRF 16 gives 48 MiB
 ```
 
 ## Rights and honesty
