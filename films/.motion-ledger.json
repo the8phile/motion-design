@@ -57,6 +57,59 @@
         "power2.out",
         "sine.inOut"
       ]
+    },
+    {
+      "name": "kopia-reste-en-cours-complet",
+      "date": "2026-10-12",
+      "themes": [
+        "099"
+      ],
+      "transitions": [
+        "motif:cut",
+        "motif:dolly-out-reveal",
+        "motif:object-carry",
+        "push-in-to-seal",
+        "dolly-settle",
+        "beat-cut-hold",
+        "match-cut-motion",
+        "parallax-slide",
+        "motif:graphic-match-color"
+      ],
+      "new_components": [
+        "escrow-envelope-seal",
+        "pin-seal-split",
+        "price-stamps",
+        "typed-sheet",
+        "referral-note"
+      ],
+      "entrances": [
+        "motif:handwrite-stroke",
+        "motif:hand-slide-in",
+        "motif:object-drop",
+        "slide-out-of-phone",
+        "motif:tab-pop",
+        "hand-from-top",
+        "seal-lights",
+        "stamp-press",
+        "slide-in-right",
+        "hand-from-top",
+        "note-slide",
+        "motif:type-rise-masked"
+      ],
+      "eases": [
+        "power2.inOut",
+        "expo.out",
+        "power3.inOut",
+        "power2.out",
+        "power2.inOut",
+        "back.out(1.2)",
+        "sine.inOut",
+        "power3.in",
+        "expo.out",
+        "power2.out",
+        "power3.inOut",
+        "sine.inOut"
+      ]
     }
   ]
 }
