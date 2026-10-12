@@ -437,6 +437,11 @@ svg.ink{position:absolute;left:0;top:0;overflow:visible}
   gsap.set("#nhand", { x: -560, y: 2300, rotation: 30, opacity: 0 });
   gsap.set("#refPill", { opacity: 0, y: 30 });
 
+  // living camera: a very slow, continuous push + drift on the world for the whole film, so no shot ever freezes
+  // (#world is never tweened elsewhere; #cam keeps the story moves)
+  gsap.set("#world", { transformOrigin: "540px 860px" });
+  tl.fromTo("#world", { scale: 1, x: 0, y: 0 }, { scale: 1.07, x: -16, y: 10, duration: 35.2, ease: "none" }, 0);
+
   // ---------- 1 · hook (0–2 s): the question, handwritten ----------
   tl.to("#askClip1", { width: 330, duration: 0.7, ease: "power1.inOut" }, 0.03);
   tl.to("#askClip2", { width: 330, duration: 0.5, ease: "power1.inOut" }, 0.85);
