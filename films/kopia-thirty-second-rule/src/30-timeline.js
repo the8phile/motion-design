@@ -147,7 +147,7 @@ tl.to("#s08-btn", { scale: 1, svgOrigin: "540 1163", duration: 0.12, ease: "powe
 tl.set("#s08-btnT", { opacity: 0 }, 14.53); tl.set("#s08-btnT2", { opacity: 1 }, 14.53);
 tl.to("#s08-rh", { x: 0, y: 260, duration: 0.3, ease: "power2.in" }, 14.62);
 // screen hand-off: the order card leaves the phone and lands on the shop's monitor
-$("#flyCard").innerHTML = `<defs><clipPath id="flyClip"><rect width="470" height="440" rx="24"/></clipPath></defs><g filter="url(#shL)"><rect width="470" height="440" rx="24" fill="#F5F6F9"/><g clip-path="url(#flyClip)">${orderUI(470, 440, "fly").replace(/Simplified illustration/, "")}</g></g>`;
+$("#flyCard").innerHTML = `<defs><clipPath id="flyClip"><rect width="470" height="440" rx="24"/></clipPath></defs><g filter="url(#shL)"><rect width="470" height="440" rx="24" fill="#F5F6F9"/><g clip-path="url(#flyClip)">${orderUI(470, 440, "fly").replace(S.simplified, "")}</g></g>`;
 tl.fromTo("#flyCard", { x: 318, y: 455, scale: 1.04, opacity: 0 }, { opacity: 1, duration: 0.06, ease: "none" }, 14.72);
 tl.to("#flyCard", { x: 696, y: 970, scale: 0.65, duration: 0.46, ease: "power3.inOut" }, 14.78);
 tl.set("#s09-card", { opacity: 1 }, 15.24);

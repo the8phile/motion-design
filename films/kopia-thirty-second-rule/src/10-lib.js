@@ -74,28 +74,28 @@ function cleanPage(w, h, o = {}) {
   let g = `<rect x="0" y="0" width="${w}" height="${h}" rx="${2 * s}" fill="#FBF8F1" ${o.noShadow ? "" : 'filter="url(#sh)"'}/>`;
   g += `<g transform="scale(${s})">`;
   g += `<text x="70" y="128" font-family="Poppins" font-weight="700" font-size="58" fill="#0B1B3A" letter-spacing="-1">Beignets Ekobena</text>`;
-  g += `<text x="72" y="182" font-family="Poppins" font-weight="600" font-size="36" fill="#0D5EF4">Business Plan</text>`;
+  g += `<text x="72" y="182" font-family="Poppins" font-weight="600" font-size="36" fill="#0D5EF4">${S.bpSub}</text>`;
   g += `<rect x="72" y="214" width="656" height="4" fill="#0B1B3A" opacity=".85"/>`;
   if (!o.cover) {
     const sec = (y, t) => `<text x="72" y="${y}" font-family="Poppins" font-weight="600" font-size="31" fill="#0B1B3A">${t}</text>`;
     const bars = (y, n, wid) => Array.from({ length: n }, (_, i) => `<rect x="72" y="${y + i * 30}" width="${wid[i % wid.length]}" height="12" rx="6" fill="#C9CED8"/>`).join("");
-    g += sec(290, "1. The idea") + bars(316, 3, [640, 600, 420]);
-    g += sec(460, "2. Customers") + bars(486, 3, [620, 652, 380]);
-    g += sec(630, "3. Cash flow");
+    g += sec(290, S.sec1) + bars(316, 3, [640, 600, 420]);
+    g += sec(460, S.sec2) + bars(486, 3, [620, 652, 380]);
+    g += sec(630, S.sec3);
     // clean table
     const tx = 72, ty = 662, cw = [230, 213, 213], rh = 58;
     g += `<rect x="${tx}" y="${ty}" width="656" height="${rh}" fill="#E8EEFC"/>`;
-    ["Month", "Sales", "Costs"].forEach((t, i) => { g += `<text x="${tx + cw.slice(0, i).reduce((a, b) => a + b, 0) + (i ? cw[i] - 24 : 22)}" y="${ty + 39}" font-family="Inter" font-weight="700" font-size="25" fill="#0B1B3A" text-anchor="${i ? "end" : "start"}">${t}</text>`; });
-    const rows = [["January", "152 000", "96 000"], ["February", "168 000", "101 000"], ["March", "181 000", "104 000"]];
+    [S.thMonth, S.thSales, S.thCosts].forEach((t, i) => { g += `<text x="${tx + cw.slice(0, i).reduce((a, b) => a + b, 0) + (i ? cw[i] - 24 : 22)}" y="${ty + 39}" font-family="Inter" font-weight="700" font-size="25" fill="#0B1B3A" text-anchor="${i ? "end" : "start"}">${t}</text>`; });
+    const rows = [[S.m1, "152 000", "96 000"], [S.m2, "168 000", "101 000"], [S.m3, "181 000", "104 000"]];
     rows.forEach((row, ri) => row.forEach((t, i) => {
       g += `<text x="${tx + cw.slice(0, i).reduce((a, b) => a + b, 0) + (i ? cw[i] - 24 : 22)}" y="${ty + rh * (ri + 1) + 39}" font-family="Inter" font-weight="500" font-size="25" fill="#26324A" text-anchor="${i ? "end" : "start"}">${t}</text>`;
     }));
     for (let i = 0; i <= 4; i++) g += `<rect x="${tx}" y="${ty + i * rh}" width="656" height="2" fill="#C9CED8"/>`;
-    g += sec(960, "4. Next steps") + bars(986, 2, [600, 500]);
+    g += sec(960, S.sec4) + bars(986, 2, [600, 500]);
   } else {
-    g += `<text x="72" y="300" font-family="Inter" font-weight="500" font-size="26" fill="#55607A">Prepared by Nadège Ekobena</text>`;
+    g += `<text x="72" y="300" font-family="Inter" font-weight="500" font-size="26" fill="#55607A">${S.prepared}</text>`;
     g += `<rect x="72" y="${h / s - 150}" width="656" height="2" fill="#C9CED8"/>`;
-    g += `<text x="72" y="${h / s - 100}" font-family="Inter" font-weight="500" font-size="24" fill="#55607A">18 pages</text>`;
+    g += `<text x="72" y="${h / s - 100}" font-family="Inter" font-weight="500" font-size="24" fill="#55607A">${S.pages18}</text>`;
   }
   return g + "</g>";
 }

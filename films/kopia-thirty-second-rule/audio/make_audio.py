@@ -1,7 +1,7 @@
 """Music + SFX + voices for 'Kopia · The Thirty-Second Rule' (37 s, 120 BPM). All synthesised or generated offline:
 no samples, no licences. Voices come from audio/make_voices.py (Kokoro TTS).
 
-  python3 films/kopia-thirty-second-rule/audio/make_audio.py
+  python3 films/kopia-thirty-second-rule/audio/make_audio.py [--lang en|fr]
 
 Writes audio/music.wav, audio/sfx.wav, audio/voice.wav and audio/mix.wav (48 kHz stereo, -14 LUFS, true peak <= -1.3 dBTP).
 Beat grid: 120 BPM, beat 0.5 s, bar 2 s. Story of the music:
@@ -12,12 +12,16 @@ Beat grid: 120 BPM, beat 0.5 s, bar 2 s. Story of the music:
   20.0   DROP: full groove with a highlife guitar (G - Em - C - D), the printer lands on the beats
   28-31  softens under Maman; 33-34 riser; 34.0 final hit, chord rings under the end line
 """
-import json, os, subprocess, sys
+import argparse, json, os, subprocess, sys
 import numpy as np
 from scipy.signal import butter, sosfilt, resample_poly
 import soundfile as sf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+_ap = argparse.ArgumentParser(); _ap.add_argument("--lang", default="en", choices=["en", "fr"])
+LANG = _ap.parse_args().lang
+VO = os.path.join(HERE, "vo" if LANG == "en" else "vo-" + LANG)
+SUF = "" if LANG == "en" else "-" + LANG
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "saas-motion-video", "tools"))
 from warm_sfx import SR, marimba, woodblock, room  # noqa: E402
@@ -274,10 +278,10 @@ put(sfx, 34.3, thump(0.5, 90)); put(sfx, 34.32, whoosh(0.3, 1500, 7000, 0.1))
 put(sfx, 35.24, room(marimba(hz(84), 0.5, 0.4)), 0.14)
 
 # ------------------------------------------------------------------ voices
-LINES = json.load(open(os.path.join(HERE, "vo", "lines.json")))
+LINES = json.load(open(os.path.join(VO, "lines.json"), encoding="utf-8"))
 voice = np.zeros(N); duck = np.ones(N)
 for L in LINES:
-    a, sr = sf.read(os.path.join(HERE, "vo", L["id"] + ".wav"))
+    a, sr = sf.read(os.path.join(VO, L["id"] + ".wav"))
     if a.ndim > 1: a = a.mean(1)
     a = resample_poly(a, SR, sr)
     a = hp(a, 90)
@@ -306,12 +310,12 @@ def write(path, x):
     x = x / (np.abs(x).max() + 1e-9) * 0.9
     sf.write(path, x.astype(np.float32), SR, subtype="PCM_16")
 
-write(os.path.join(HERE, "music.wav"), bed); write(os.path.join(HERE, "sfx.wav"), stereo(sfx)); write(os.path.join(HERE, "voice.wav"), stereo(voice))
-pre = os.path.join(HERE, "mix_pre.wav"); write(pre, mix)
+write(os.path.join(HERE, "music.wav"), bed); write(os.path.join(HERE, "sfx.wav"), stereo(sfx)); write(os.path.join(HERE, f"voice{SUF}.wav"), stereo(voice))
+pre = os.path.join(HERE, f"mix_pre{SUF}.wav"); write(pre, mix)
 p1 = subprocess.run(["ffmpeg", "-hide_banner", "-i", pre, "-af", "loudnorm=I=-14:TP=-1.3:LRA=11:print_format=json", "-f", "null", "-"], capture_output=True, text=True).stderr
 m = json.loads(p1[p1.rindex("{"): p1.rindex("}") + 1])
 af = (f"loudnorm=I=-14:TP=-1.3:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:"
       f"measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", pre, "-af", af, "-ar", str(SR), os.path.join(HERE, "mix.wav")], check=True)
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", pre, "-af", af, "-ar", str(SR), os.path.join(HERE, f"mix{SUF}.wav")], check=True)
 os.remove(pre)
-print("wrote music.wav, sfx.wav, voice.wav, mix.wav")
+print(f"wrote music.wav, sfx.wav, voice{SUF}.wav, mix{SUF}.wav")

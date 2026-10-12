@@ -26,7 +26,7 @@ SC.s01 = () => {
   g += `<g id="s01-stack"><g filter="url(#boil)">`;
   const offs = [[30, 40, 4], [-24, 22, -3], [14, -8, 2], [-10, 12, -1.5]];
   offs.forEach(([dx, dy, rot], i) => { g += `<g transform="translate(${180 + dx} ${470 + dy}) rotate(${rot} 360 490)">${messyPage(720, 980, 40 + i, { lines: 12 })}</g>`; });
-  g += `<g id="s01-top" transform="translate(180 470) rotate(-2.5 360 490)">${messyPage(720, 980, 7, { title: "Business plan", arrows: true, figures: true, coffee: true, staple: true, lines: 12 })}</g>`;
+  g += `<g id="s01-top" transform="translate(180 470) rotate(-2.5 360 490)">${messyPage(720, 980, 7, { title: S.planHW, arrows: true, figures: true, coffee: true, staple: true, lines: 12 })}</g>`;
   g += `</g></g>`;
   put("s01", `<g id="s01-cam">${g}</g>`);
 };
@@ -38,7 +38,7 @@ function board(x, y, w, h, seed, writing = true) {
   const r = PRNG(seed + 1);
   for (let i = 0; i < 6; i++) g += `<ellipse cx="${f1(x + r() * w)}" cy="${f1(y + r() * h)}" rx="${f1(120 + r() * 160)}" ry="${f1(40 + r() * 60)}" fill="#E8EBDF" opacity=".06" filter="url(#soft24)"/>`;
   if (writing) {
-    g += `<g filter="url(#chalk)" opacity=".5">${hw(x + 70, y + 150, "Revenue − Costs = Profit", 70, "#E3E8DC", -1, 700)}${hw(x + 90, y + 290, "Market → Customers → Sales", 60, "#E3E8DC", 1, 500)}${hw(x + 520, y + 470, "x 12 months", 58, "#E3E8DC", -2, 500)}</g>`;
+    g += `<g filter="url(#chalk)" opacity=".5">${hw(x + 70, y + 150, S.boardRev, 70, "#E3E8DC", -1, 700)}${hw(x + 90, y + 290, S.boardMkt, 60, "#E3E8DC", 1, 500)}${hw(x + 520, y + 470, S.boardMonths, 58, "#E3E8DC", -2, 500)}</g>`;
   }
   return g;
 }
@@ -56,7 +56,7 @@ SC.s02 = () => {
   g += `</g></g>`;
   // raised arm (his right, screen left): upper arm down to the elbow, forearm up to the hand
   g += `<g id="s02-arm" filter="url(#sh)">${limb("s02-up", 300, 1130, 200, 1460, 116, "#647259")}${limb("s02-fore", 200, 1460, 318, 760, 106, "#6E7C67")}<rect x="262" y="778" width="112" height="40" rx="14" fill="#ECE6D8" transform="rotate(10 318 798)"/></g>`;
-  g += `<g id="s02-page" ><g transform="translate(332 708)"><g id="s02-pageSwing"><g transform="rotate(-9)"><g filter="url(#boil)"><g transform="translate(-340 -14) scale(0.47)">${messyPage(720, 980, 7, { title: "Business plan", arrows: true, figures: true, coffee: true, staple: true, lines: 12 })}</g></g></g></g></g></g>`;
+  g += `<g id="s02-page" ><g transform="translate(332 708)"><g id="s02-pageSwing"><g transform="rotate(-9)"><g filter="url(#boil)"><g transform="translate(-340 -14) scale(0.47)">${messyPage(720, 980, 7, { title: S.planHW, arrows: true, figures: true, coffee: true, staple: true, lines: 12 })}</g></g></g></g></g></g>`;
   g += `<g transform="translate(330 716) rotate(-12) scale(1.15)" filter="url(#shS)">${hand({ skin: MB.skin, skinD: MB.skinD, pose: "fist" })}</g>`;
   put("s02", `<g id="s02-cam">${g}</g>`);
 };
@@ -66,10 +66,10 @@ SC.s03 = () => {
   let g = `<rect width="1080" height="1920" fill="#2F5747"/>`;
   const r = PRNG(31);
   for (let i = 0; i < 10; i++) g += `<ellipse cx="${f1(r() * 1080)}" cy="${f1(r() * 1920)}" rx="${f1(160 + r() * 200)}" ry="${f1(50 + r() * 80)}" fill="#E8EBDF" opacity=".06" filter="url(#soft24)"/>`;
-  g += `<g filter="url(#chalk)" opacity=".28">${hw(80, 260, "x 12 months", 80, "#E3E8DC", -2, 500)}${hw(560, 1560, "= Profit", 90, "#E3E8DC", 2, 500)}</g>`;
+  g += `<g filter="url(#chalk)" opacity=".28">${hw(80, 260, S.boardMonths, 80, "#E3E8DC", -2, 500)}${hw(560, 1560, S.boardProfit, 90, "#E3E8DC", 2, 500)}</g>`;
   g += `<rect x="0" y="0" width="1080" height="70" fill="#7A5233"/><rect x="0" y="1780" width="1080" height="140" fill="#7A5233"/><rect x="0" y="1770" width="1080" height="18" fill="#634127"/>`;
   g += `<rect x="640" y="1736" width="90" height="26" rx="10" fill="#EDEBDF"/><rect x="760" y="1740" width="60" height="22" rx="9" fill="#E3DCCB"/>`;
-  const L = [["FRIDAY 10:00", 96, 690, 160, -2], ["TYPED.", 116, 960, 196, 1], ["PRINTED.", 116, 1230, 196, -1]];
+  const L = [[S.chalk1, 96, 690, Number(S.chalk1Size), -2], [S.chalk2, 116, 960, 196, 1], [S.chalk3, 116, 1230, 196, -1]];
   g += `<defs>${L.map((l, i) => `<clipPath id="s03c${i}"><rect id="s03r${i}" x="60" y="${l[2] - 200}" width="0" height="260"/></clipPath>`).join("")}</defs>`;
   g += `<g filter="url(#chalk)">`;
   L.forEach((l, i) => { g += `<g clip-path="url(#s03c${i})">${hw(l[1], l[2], l[0], l[3], "#EEF0E6", l[4], 700)}${i ? `<path d="M${l[1] - 6} ${l[2] + 34} C${l[1] + 200} ${l[2] + 22} ${l[1] + 480} ${l[2] + 40} ${l[1] + 700} ${l[2] + 26}" stroke="#EEF0E6" stroke-width="10" fill="none" stroke-linecap="round"/>` : ""}</g>`; });
@@ -143,7 +143,7 @@ SC.s06 = () => {
   g += `<path d="${rrect(0, 0, 660, 900, 71, 4, 40)}" fill="#F3EAD9" filter="url(#sh)"/>`;
   for (let y = 70; y < 880; y += 44) g += `<path d="M10 ${y} H650" stroke="#C7D3DF" stroke-width="2" opacity=".6"/>`;
   g += `<defs><clipPath id="s06clip"><rect id="s06-reveal" x="0" y="0" width="660" height="60"/></clipPath></defs><g clip-path="url(#s06clip)">`;
-  g += hw(60, 70, "Cash flow??", 54, "#2A2320", -2, 700);
+  g += hw(60, 70, S.cashQ, 54, "#2A2320", -2, 700);
   for (let i = 0; i < 15; i++) g += scribPath(60 + (i % 4 === 2 ? 30 : 0), 140 + i * 48, 300 + ((i * 97) % 240), 300 + i, 3.6);
   g += arrow(520, 180, 600, 360, 50) + arrow(140, 640, 60, 520, -40) + hw(380, 560, "15 000", 46, "#2A2320", 4, 700) + cross(376, 522, 150, 46) + hw(420, 640, "18 500", 46, "#2A2320", -3, 700);
   g += `</g>`;
@@ -169,7 +169,7 @@ SC.s07 = () => {
   // fanned pages + the table page
   g += `<g id="s07-pages" filter="url(#boil)">`;
   [[360, 1130, -14, 81], [520, 1110, 6, 82], [690, 1150, -4, 83], [840, 1120, 12, 84]].forEach(([x, y, r, s]) => { g += `<g transform="translate(${x} ${y}) rotate(${r}) scale(0.34)">${messyPage(720, 980, s, { lines: 12 })}</g>`; });
-  g += `<g transform="translate(420 1230) rotate(-5) scale(0.46)">${messyPage(720, 980, 85, { title: "Cash flow", figures: true, coffee: true, lines: 6 })}
+  g += `<g transform="translate(420 1230) rotate(-5) scale(0.46)">${messyPage(720, 980, 85, { title: S.cash, figures: true, coffee: true, lines: 6 })}
      <g transform="translate(70 560)"><path d="M0 0 H560 M0 80 H560 M0 160 H560 M190 -10 V170 M380 -10 V170" stroke="#2A2320" stroke-width="5" fill="none"/></g>${coffee(470, 640, 120, 86, 0.65)}</g>`;
   g += `</g>`;
   g += `<g transform="translate(990 1110)"><path d="M-40 -110 L40 -110 L30 0 L-30 0Z" fill="#EDE4D3" filter="url(#shS)"/><rect x="-37" y="-80" width="74" height="40" fill="#8A5A33"/><rect x="-44" y="-122" width="88" height="16" rx="6" fill="#F7F1E4"/></g>`;
@@ -188,22 +188,22 @@ function orderUI(w, h, p) { // local coords 0..w (designed at 470 wide)
   const row = (y, t, i) => `<g transform="translate(26 ${y})"><rect width="418" height="64" rx="16" fill="#FFFFFF" stroke="#E2E6EE" stroke-width="2"/><circle cx="36" cy="32" r="15" fill="#0D5EF4"/><path d="M28 32 l6 6 l11 -12" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="64" y="41" font-family="Inter" font-weight="600" font-size="22" fill="#0B1B3A">${t}</text></g>`;
   let g = `<rect width="${w}" height="${h}" fill="#F5F6F9"/>`;
   g += miniLogo(26, 74, 0.13) + `<text x="84" y="108" font-family="Poppins" font-weight="600" font-size="26" fill="#0B1B3A">kopia.online</text>`;
-  g += `<text x="26" y="180" font-family="Poppins" font-weight="700" font-size="30" fill="#0B1B3A">Your order</text>`;
-  g += `<g transform="translate(26 206)"><rect width="418" height="120" rx="18" fill="#FFFFFF" stroke="#E2E6EE" stroke-width="2"/>${[0, 1, 2, 3].map((i) => `<rect x="${18 + i * 30}" y="${22 + (i % 2) * 6}" width="56" height="76" rx="4" fill="#F3EAD9" stroke="#D9CDB5" stroke-width="2" transform="rotate(${-6 + i * 4} ${46 + i * 30} 60)"/>`).join("")}<text x="190" y="56" font-family="Inter" font-weight="700" font-size="24" fill="#0B1B3A">18 pages</text><text x="190" y="88" font-family="Inter" font-weight="500" font-size="20" fill="#55607A">handwritten, photographed</text></g>`;
-  g += row(350, "Typing + printing", 0) + row(426, "2 copies", 1) + row(502, "Delivery to the classroom", 2) + row(578, "Pay with MTN MoMo", 3);
-  g += `<g id="${p}-btn" transform="translate(26 676)"><rect width="418" height="84" rx="22" fill="#0D5EF4"/><text id="${p}-btnT" x="209" y="54" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="32" fill="#F7F9FF">Order</text><text id="${p}-btnT2" x="209" y="54" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="32" fill="#F7F9FF" opacity="0">Ordered ✓</text></g>`;
-  g += `<text x="${w / 2}" y="800" text-anchor="middle" font-family="Inter" font-weight="500" font-size="16" fill="#7A8399">Simplified illustration</text>`;
+  g += `<text x="26" y="180" font-family="Poppins" font-weight="700" font-size="30" fill="#0B1B3A">${S.yourOrder}</text>`;
+  g += `<g transform="translate(26 206)"><rect width="418" height="120" rx="18" fill="#FFFFFF" stroke="#E2E6EE" stroke-width="2"/>${[0, 1, 2, 3].map((i) => `<rect x="${18 + i * 30}" y="${22 + (i % 2) * 6}" width="56" height="76" rx="4" fill="#F3EAD9" stroke="#D9CDB5" stroke-width="2" transform="rotate(${-6 + i * 4} ${46 + i * 30} 60)"/>`).join("")}<text x="190" y="56" font-family="Inter" font-weight="700" font-size="24" fill="#0B1B3A">18 pages</text><text x="190" y="88" font-family="Inter" font-weight="500" font-size="20" fill="#55607A">${S.pagesSub}</text></g>`;
+  g += row(350, S.rowTyping, 0) + row(426, S.rowCopies, 1) + row(502, S.rowDelivery, 2) + row(578, S.rowPay, 3);
+  g += `<g id="${p}-btn" transform="translate(26 676)"><rect width="418" height="84" rx="22" fill="#0D5EF4"/><text id="${p}-btnT" x="209" y="54" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="32" fill="#F7F9FF">${S.btnOrder}</text><text id="${p}-btnT2" x="209" y="54" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="32" fill="#F7F9FF" opacity="0">${S.btnOrdered}</text></g>`;
+  g += `<text x="${w / 2}" y="800" text-anchor="middle" font-family="Inter" font-weight="500" font-size="16" fill="#7A8399">${S.simplified}</text>`;
   return g;
 }
 
 // ------------------------------------------------------------ S08 · photograph every page, order on kopia.online
 SC.s08 = () => {
   let g = `<rect width="1080" height="1920" fill="#A5734A"/>`;
-  g += `<g filter="url(#boil)"><g id="s08-under" transform="translate(70 240) rotate(-4 470 650)">${messyPage(940, 1300, 85, { title: "Cash flow", figures: true, coffee: true, lines: 20, arrows: true })}</g></g>`;
+  g += `<g filter="url(#boil)"><g id="s08-under" transform="translate(70 240) rotate(-4 470 650)">${messyPage(940, 1300, 85, { title: S.cash, figures: true, coffee: true, lines: 20, arrows: true })}</g></g>`;
   g += `<g id="s08-phone"><g transform="translate(290 430)">`;
   g += `<rect width="500" height="1010" rx="74" fill="#1C1F26" filter="url(#shL)"/><rect x="14" y="14" width="472" height="982" rx="62" fill="#0E1015"/>`;
   g += `<defs><clipPath id="s08scr"><rect x="15" y="15" width="470" height="980" rx="60"/></clipPath></defs><g clip-path="url(#s08scr)"><g transform="translate(15 15)">`;
-  g += `<g id="s08-cam"><rect width="470" height="980" fill="#1A1C22"/><g filter="url(#boil)"><g id="s08-shot" transform="translate(40 150) rotate(-4 195 270) scale(0.54)">${messyPage(720, 980, 85, { title: "Cash flow", figures: true, coffee: true, lines: 14, arrows: true })}</g></g>
+  g += `<g id="s08-cam"><rect width="470" height="980" fill="#1A1C22"/><g filter="url(#boil)"><g id="s08-shot" transform="translate(40 150) rotate(-4 195 270) scale(0.54)">${messyPage(720, 980, 85, { title: S.cash, figures: true, coffee: true, lines: 14, arrows: true })}</g></g>
      <rect y="0" width="470" height="110" fill="#0E1015" opacity=".85"/><rect y="820" width="470" height="160" fill="#0E1015" opacity=".85"/><circle cx="235" cy="900" r="44" fill="none" stroke="#F3F1EC" stroke-width="7"/><circle id="s08-shutter" cx="235" cy="900" r="33" fill="#F3F1EC"/>
      <text id="s08-count" x="235" y="80" text-anchor="middle" font-family="Inter" font-weight="600" font-size="26" fill="#F3F1EC">1 / 18</text>
      <rect id="s08-flash" width="470" height="980" fill="#FBFAF6" opacity="0"/></g>`;
@@ -234,7 +234,7 @@ SC.s09 = () => {
   g += `<g id="s09-hand" opacity="0">${limb("s09-fa", 400, 1560, 500, 1070, 100, "#4E5765")}<g transform="translate(522 1012) rotate(18) scale(1.1)">${hand({ skin: SE.skin, skinD: SE.skinD, pose: "point" })}</g></g>`;
   g += `<rect x="0" y="1290" width="1080" height="30" fill="#EFE6D4"/><rect x="0" y="1318" width="1080" height="602" fill="#0B1B3A"/>`;
   g += `<rect x="830" y="1250" width="60" height="44" fill="#22262E"/><rect x="760" y="1286" width="200" height="14" rx="6" fill="#22262E"/>`;
-  g += `<g transform="translate(660 940)"><rect width="380" height="320" rx="16" fill="#22262E" filter="url(#sh)"/><rect x="14" y="14" width="352" height="292" rx="8" fill="#F5F6F9"/><defs><clipPath id="s09mon"><rect x="14" y="14" width="352" height="292" rx="8"/></clipPath></defs><g clip-path="url(#s09mon)"><g id="s09-card" opacity="0"><g transform="translate(36 30) scale(0.65)">${orderUI(470, 440, "s09").replace(/Simplified illustration/, "")}</g></g></g></g>`;
+  g += `<g transform="translate(660 940)"><rect width="380" height="320" rx="16" fill="#22262E" filter="url(#sh)"/><rect x="14" y="14" width="352" height="292" rx="8" fill="#F5F6F9"/><defs><clipPath id="s09mon"><rect x="14" y="14" width="352" height="292" rx="8"/></clipPath></defs><g clip-path="url(#s09mon)"><g id="s09-card" opacity="0"><g transform="translate(36 30) scale(0.65)">${orderUI(470, 440, "s09").replace(S.simplified, "")}</g></g></g></g>`;
   put("s09", `<g id="s09-cam">${g}</g>`);
 };
 
@@ -247,16 +247,16 @@ SC.s10 = () => {
   g += `<g clip-path="url(#s10ch)"><g filter="url(#boil)"><g transform="translate(140 400)">`;
   g += `<path d="${rrect(0, 0, 800, 1160, 101, 4, 40)}" fill="#F3EAD9" filter="url(#sh)"/>`;
   for (let y = 70; y < 1140; y += 44) g += `<path d="M10 ${y} H790" stroke="#C7D3DF" stroke-width="2" opacity=".6"/>`;
-  g += hw(64, 110, "Beignets Ekobena", 66, "#2A2320", -3, 700) + hw(420, 172, "plan!!", 56, "#2A2320", 4, 700) + `<path d="M60 196 C220 186 400 206 560 192" stroke="#2A2320" stroke-width="5" fill="none"/>`;
-  g += hw(64, 296, "1 - idea", 44, "#2A2320", 0, 700) + scribPath(70, 340, 560, 1001, 3.6) + scribPath(70, 384, 480, 1002, 3.6) + arrow(640, 300, 720, 420, 40);
-  g += hw(64, 476, "2 - who buys?", 44, "#2A2320", -2, 700) + scribPath(70, 520, 600, 1003, 3.6) + scribPath(90, 564, 420, 1004, 3.6);
-  g += hw(64, 650, "3 - cash flow", 44, "#2A2320", 1, 700);
+  g += hw(64, 110, "Beignets Ekobena", 66, "#2A2320", -3, 700) + hw(420, 172, S.hwPlan, 56, "#2A2320", 4, 700) + `<path d="M60 196 C220 186 400 206 560 192" stroke="#2A2320" stroke-width="5" fill="none"/>`;
+  g += hw(64, 296, S.hw1, 44, "#2A2320", 0, 700) + scribPath(70, 340, 560, 1001, 3.6) + scribPath(70, 384, 480, 1002, 3.6) + arrow(640, 300, 720, 420, 40);
+  g += hw(64, 476, S.hw2, 44, "#2A2320", -2, 700) + scribPath(70, 520, 600, 1003, 3.6) + scribPath(90, 564, 420, 1004, 3.6);
+  g += hw(64, 650, S.hw3, 44, "#2A2320", 1, 700);
   g += `<path d="M70 680 C300 676 520 686 730 678 M70 744 C300 750 520 738 730 746 M70 808 C300 802 520 812 730 806 M70 872 C300 876 520 866 730 874 M290 670 C292 760 286 820 292 884 M510 672 C506 760 512 820 508 882" stroke="#2A2320" stroke-width="4.5" fill="none"/>`;
-  g += hw(90, 730, "Jan", 40, "#2A2320", 0, 700) + hw(320, 730, "152 000", 38, "#2A2320", -2, 700) + hw(540, 732, "96 000", 38, "#2A2320", 2, 700) + cross(316, 698, 140, 40);
-  g += hw(90, 794, "Feb", 40, "#2A2320", 0, 700) + hw(330, 796, "168 000?", 38, "#2A2320", 3, 700) + hw(530, 792, "101 000", 38, "#2A2320", -3, 700);
-  g += hw(90, 858, "Mar", 40, "#2A2320", 0, 700) + hw(320, 860, "181 000", 38, "#2A2320", 0, 700) + hw(536, 858, "104 000", 38, "#2A2320", 1, 700);
+  g += hw(90, 730, S.hwJan, 40, "#2A2320", 0, 700) + hw(320, 730, "152 000", 38, "#2A2320", -2, 700) + hw(540, 732, "96 000", 38, "#2A2320", 2, 700) + cross(316, 698, 140, 40);
+  g += hw(90, 794, S.hwFeb, 40, "#2A2320", 0, 700) + hw(330, 796, "168 000?", 38, "#2A2320", 3, 700) + hw(530, 792, "101 000", 38, "#2A2320", -3, 700);
+  g += hw(90, 858, S.hwMar, 40, "#2A2320", 0, 700) + hw(320, 860, "181 000", 38, "#2A2320", 0, 700) + hw(536, 858, "104 000", 38, "#2A2320", 1, 700);
   g += coffee(560, 780, 110, 103, 0.6);
-  g += hw(64, 980, "4 - next", 44, "#2A2320", -1, 700) + scribPath(70, 1024, 520, 1005, 3.6) + scribPath(70, 1068, 380, 1006, 3.6);
+  g += hw(64, 980, S.hw4, 44, "#2A2320", -1, 700) + scribPath(70, 1024, 520, 1005, 3.6) + scribPath(70, 1068, 380, 1006, 3.6);
   g += `</g></g></g>`;
   // typed version (crisp, never moves)
   g += `<g clip-path="url(#s10ct)"><g transform="translate(140 400)">${cleanPage(800, 1160)}</g></g>`;
@@ -392,8 +392,8 @@ SC.s17 = () => {
   let g = `<rect width="1080" height="1920" fill="#0D5EF4"/>`;
   g += `<g id="s17-lockup"><g transform="translate(-18.4 518.8) scale(0.7)">${lockup()}</g></g>`;
   g += `<defs><clipPath id="s17tc"><rect x="0" y="994" width="1080" height="84"/></clipPath><clipPath id="s17tc2"><rect x="0" y="1078" width="1080" height="88"/></clipPath></defs>`;
-  g += `<g clip-path="url(#s17tc)"><text id="s17-t1" x="540" y="1058" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="66" fill="#F7F9FF" letter-spacing="-1">Your hard work,</text></g>`;
-  g += `<g clip-path="url(#s17tc2)"><text id="s17-t2" x="540" y="1140" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="66" fill="#F7F9FF" letter-spacing="-1">perfectly presented.</text></g>`;
+  g += `<g clip-path="url(#s17tc)"><text id="s17-t1" x="540" y="1058" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="66" fill="#F7F9FF" letter-spacing="-1">${S.tag1}</text></g>`;
+  g += `<g clip-path="url(#s17tc2)"><text id="s17-t2" x="540" y="1140" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="66" fill="#F7F9FF" letter-spacing="-1">${S.tag2}</text></g>`;
   g += `<g id="s17-url"><rect x="300" y="1236" width="480" height="104" rx="52" fill="#0B1B3A"/><text x="540" y="1304" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="48" fill="#F7F9FF">kopia.online</text></g>`;
   put("s17", g);
 };
