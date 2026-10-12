@@ -1,0 +1,68 @@
+[
+  {
+    "file": "vo/01.wav",
+    "start": 0.15,
+    "duration": 3.208,
+    "text": "Le cours commence… et votre chapitre n'est pas encore imprimé ?"
+  },
+  {
+    "file": "vo/02.wav",
+    "start": 4.05,
+    "duration": 1.0,
+    "text": "Restez en cours."
+  },
+  {
+    "file": "vo/03.wav",
+    "start": 5.6,
+    "duration": 3.802,
+    "text": "Payez par MTN MoMo ou Orange Money : votre argent reste chez Kopia."
+  },
+  {
+    "file": "vo/04.wav",
+    "start": 10.0,
+    "duration": 3.947,
+    "text": "Une boutique partenaire imprime. Un coursier vérifié vous l'apporte en salle."
+  },
+  {
+    "file": "vo/05.wav",
+    "start": 14.1,
+    "duration": 1.199,
+    "text": "Livré à votre place."
+  },
+  {
+    "file": "vo/06.wav",
+    "start": 15.6,
+    "duration": 3.343,
+    "text": "Donnez votre code PIN : alors seulement, le paiement est libéré."
+  },
+  {
+    "file": "vo/07.wav",
+    "start": 19.6,
+    "duration": 3.558,
+    "text": "Dès vingt-cinq francs la page, et deux cents francs la livraison en salle."
+  },
+  {
+    "file": "vo/08.wav",
+    "start": 24.1,
+    "duration": 2.562,
+    "text": "Vos notes manuscrites ? Une boutique les tape pour vous."
+  },
+  {
+    "file": "vo/09.wav",
+    "start": 28.0,
+    "duration": 2.228,
+    "text": "Stylos, cahiers : même paiement, même livraison."
+  },
+  {
+    "file": "vo/10.wav",
+    "start": 31.1,
+    "duration": 3.67,
+    "text": "Parrainez un ami : cent francs pour vous, cinquante de réduction pour lui."
+  },
+  {
+    "file": "vo/11.wav",
+    "start": 35.4,
+    "duration": 2.605,
+    "text": "Vos impressions viennent à vous. Kopia point online !"
+  }
+]

@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Kopia · Reste en cours (version complète)</title>
+<script src="assets/vendor/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:600;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:700;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2")}
+@font-face{font-family:"Poppins";font-weight:800;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2")}
+@font-face{font-family:"Inter";font-weight:100 900;font-display:block;src:url("assets/fonts/Inter-Variable.woff2") format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:block;src:url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"),url("assets/fonts/instrument-serif-latin-ext-400-italic.woff2") format("woff2")}
+
+:root{
+  --ink:#0B1B3A; --ink2:#1B2B44; --kblue:#0D5EF4; --kred:#EF2F3C; --white:#F7F9FF; --cream:#FFF8EC; --shirt:#2F7A72;
+  --paper:#FFFDF6; --paper2:#F6F1E6; --blue:#1F3A6E; --wood1:#C48C57; --wood2:#B07743; --wood3:#A2693A;
+  --skin:#7A4A2C; --skin2:#6B3F24;
+  --sans:"Poppins",system-ui,sans-serif; --ui:"Inter",system-ui,sans-serif; --hand:"Instrument Serif",Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#2A1A0E}
+#root{position:relative;width:100%;height:100%;overflow:hidden;font-family:var(--sans);color:var(--ink)}
+.abs{position:absolute}
+
+/* ---------- camera + world ---------- */
+#cam{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.cell{position:absolute;width:1080px;height:1920px;overflow:hidden}
+.wood{position:absolute;left:0;top:0;width:1080px;height:1560px;
+  background:
+    repeating-linear-gradient(92deg,rgba(0,0,0,.045) 0 3px,transparent 3px 19px),
+    repeating-linear-gradient(91deg,rgba(255,255,255,.05) 0 2px,transparent 2px 41px),
+    linear-gradient(180deg,var(--wood1),var(--wood2) 60%,var(--wood3))}
+.wood::after{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:rgba(60,30,10,.35)}
+.seat{position:absolute;left:0;top:1560px;width:1080px;height:360px;background:linear-gradient(180deg,#4A2E18,#3A2312)}
+.seat::before{content:"";position:absolute;left:0;right:0;top:0;height:12px;background:#D9A26B}
+.head{position:absolute;left:340px;top:1640px;width:400px;height:400px;border-radius:50%}
+.shoulders{position:absolute;left:150px;top:1790px;width:780px;height:420px;border-radius:390px 390px 0 0}
+.onb{position:absolute;display:flex;filter:drop-shadow(0 14px 14px rgba(40,20,5,.3))}
+.onb i{flex:1;background:var(--paper);background-image:repeating-linear-gradient(180deg,transparent 0 38px,#C9D6E6 38px 40px)}
+.lap{position:absolute;border-radius:22px;background:linear-gradient(180deg,#9AA3B0,#7A8392);box-shadow:0 16px 18px rgba(40,20,5,.35)}
+.lap::after{content:"";position:absolute;inset:26px;border-radius:10px;background:#3B4352}
+.opn{position:absolute;height:20px;border-radius:10px;background:var(--ink2);box-shadow:0 8px 8px rgba(40,20,5,.3)}
+
+/* ---------- lecturer zone ---------- */
+#lect{position:absolute;left:-2700px;top:-3420px;width:6480px;height:1500px;background:linear-gradient(180deg,#26324A,#1E2940)}
+#board{position:absolute;left:1900px;top:120px;width:2700px;height:700px;background:#1F5E46;border:26px solid #6B4A2E;border-radius:10px}
+#board i{position:absolute;height:22px;border-radius:11px;background:rgba(232,242,236,.75)}
+#ldesk{position:absolute;left:2800px;top:980px;width:900px;height:260px;background:linear-gradient(180deg,#B07743,#8E5A30);border-radius:12px;box-shadow:0 20px 30px rgba(0,0,0,.4)}
+#lhead{position:absolute;left:3500px;top:880px;width:230px;height:230px;border-radius:50%;background:#3A2314}
+#lbody{position:absolute;left:3420px;top:1000px;width:390px;height:300px;border-radius:190px 190px 40px 40px;background:#3E5C8A}
+
+/* ---------- our desk ---------- */
+#desk{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.guide{position:absolute;width:74px;height:74px;border:4px solid rgba(255,248,236,.6)}
+#g1{left:36px;top:36px;border-right:0;border-bottom:0}#g2{right:36px;top:36px;border-left:0;border-bottom:0}
+#g3{left:36px;top:1460px;border-right:0;border-top:0}#g4{right:36px;top:1460px;border-left:0;border-top:0}
+#rig{position:absolute;left:130px;top:52px;font:600 24px/1 var(--ui);letter-spacing:2px;color:var(--cream);background:rgba(14,26,43,.55);padding:12px 18px;border-radius:8px}
+#rig b{color:#9DBDFF;font-weight:600}
+
+#nb{position:absolute;left:24px;top:140px;width:700px;height:780px;transform:rotate(-3deg)}
+#tabs{position:absolute;left:470px;top:0;width:570px;height:780px}
+.tab{position:absolute;left:0;width:570px;height:92px;display:flex;align-items:center;justify-content:flex-start;padding-left:304px;
+  background:var(--cream);border-radius:0 18px 18px 0;box-shadow:0 8px 12px rgba(40,20,5,.28);font:600 28px/1 var(--ui);color:var(--ink);gap:8px;white-space:nowrap}
+.tab .ck{color:var(--kblue);font-weight:800}
+.clip{display:block}
+.tabclip{position:absolute;left:244px;top:20px;width:52px;height:52px}
+.mk{display:block;width:100%;height:100%}
+.mkb{background:url("assets/brand/kopia-mark-blue.png") center/contain no-repeat}
+.mkw{background:url("assets/brand/kopia-mark-white.png") center/contain no-repeat}
+#pages{position:absolute;left:0;top:0;width:700px;height:780px;display:flex;filter:drop-shadow(0 18px 18px rgba(40,20,5,.35))}
+.pg{position:relative;flex:1;background:var(--paper);background-image:repeating-linear-gradient(180deg,transparent 0 56px,#C4D3E6 56px 58px)}
+.pg.l{border-radius:12px 0 0 12px;box-shadow:inset -20px 0 26px -18px rgba(0,0,0,.22)}
+.pg.r{border-radius:0 12px 12px 0;box-shadow:inset 20px 0 26px -18px rgba(0,0,0,.22)}
+.pg.l h3{position:absolute;left:40px;top:44px;font:400 italic 46px/1 var(--hand);color:var(--blue)}
+.askc{position:absolute;left:0;height:74px;overflow:hidden}
+#askClip1{top:44px;width:330px}#askClip2{top:110px;width:330px}
+.ask{position:absolute;left:24px;top:6px;font:400 italic 56px/1 var(--hand);color:var(--blue);white-space:nowrap}
+svg.ink{position:absolute;left:0;top:0;overflow:visible}
+.scrib{fill:none;stroke:var(--blue);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+
+#pen{position:absolute;left:0;top:0;width:0;height:0}
+#penBody{position:absolute;left:0;top:0;width:330px;height:26px;border-radius:13px;background:linear-gradient(180deg,#26324a,#0E1A2B);transform-origin:0 50%}
+#arm{position:absolute;left:0;top:0;width:1000px;height:130px}
+#arm .fore{position:absolute;right:0;top:5px;height:120px;width:56%;background:#7A4A2C;border-radius:60px}
+#arm .sleeve{position:absolute;left:0;top:-12px;height:154px;width:52%;background:var(--shirt);border-radius:0 26px 26px 0}
+#phone{z-index:6}#ktag{z-index:8}#pen{z-index:5}#arm{z-index:4}
+
+#ktag{position:absolute;left:0;top:0;width:190px;height:190px;filter:drop-shadow(0 14px 14px rgba(40,20,5,.35))}
+.km{width:62px;height:62px;flex:none;display:block}
+
+#phone{position:absolute;left:0;top:0;width:300px;height:620px;border-radius:50px;background:#11161f;padding:13px;box-shadow:0 26px 30px rgba(40,20,5,.42)}
+#scr{position:relative;width:274px;height:594px;border-radius:38px;overflow:hidden;background:#1B2536}
+#island{position:absolute;left:97px;top:12px;width:80px;height:24px;border-radius:12px;background:#05080f;z-index:9}
+#lock{position:absolute;inset:0;padding-top:96px;text-align:center;color:#EEF2F8;background:linear-gradient(180deg,#22314A,#141D2C)}
+#lock .t{font:300 84px/1 var(--ui);letter-spacing:-2px}
+#lock .d{font:500 17px/1 var(--ui);opacity:.75;margin-top:10px}
+#cal{position:absolute;left:12px;right:12px;top:250px;background:#F4F6FA;border-radius:20px;padding:12px 14px;text-align:left;color:var(--ink);font:600 16px/1.3 var(--ui)}
+#cal small{display:block;font-weight:500;color:#475163;font-size:14px}
+#order{position:absolute;inset:0;background:#F6F4EF;padding:48px 16px 0;font-family:var(--ui);color:var(--ink)}
+.oh{display:flex;align-items:center;gap:8px;font:700 17px/1 var(--ui)}
+.oh .km{width:36px;height:36px}
+.oh span{font-weight:500;color:#5a6577;font-size:14px;margin-left:auto}
+.file{margin-top:20px;background:#FFFEFA;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pdf{width:44px;height:54px;border-radius:8px;background:#B42A22;color:#FFF8EC;font:800 13px/54px var(--ui);text-align:center;flex:none}
+.file b{display:block;font-size:16px}.file small{font-size:13px;color:#5a6577}
+.rowx{display:flex;justify-content:space-between;font:500 15px/1 var(--ui);margin-top:16px;padding:0 4px}
+.tot{display:flex;justify-content:space-between;font:700 19px/1 var(--ui);margin-top:18px;padding:14px 4px 0;border-top:1px solid #E2DED4}
+#cmd{margin-top:22px;height:58px;border-radius:16px;background:var(--kblue);font:700 20px/58px var(--ui);text-align:center;color:var(--white);position:relative;overflow:hidden}
+#sent{position:absolute;inset:0;background:var(--ink);color:var(--white);font:700 19px/58px var(--ui);text-align:center;opacity:0}
+.ex{margin-top:12px;text-align:center;font:600 12px/1 var(--ui);color:#5A6475;letter-spacing:1px}
+#notif{position:absolute;left:10px;right:10px;top:46px;background:rgba(250,248,242,.97);border-radius:20px;padding:12px;display:flex;gap:10px;align-items:center;font:700 17px/1.25 var(--ui);color:var(--ink);box-shadow:0 8px 18px rgba(0,0,0,.3);z-index:8}
+#notif .km{width:42px;height:42px}
+#notif small{display:block;font-weight:500;font-size:13px;color:#5a6577}
+
+#lhand{position:absolute;left:0;top:0;overflow:visible}
+
+#pack{position:absolute;left:0;top:0;width:470px;height:640px}
+.sh{position:absolute;left:0;top:0;width:470px;height:640px;border-radius:6px;background:#FFFEFA;box-shadow:0 2px 3px rgba(0,0,0,.12)}
+#s3{background:#F2EEE5;left:14px;top:14px}#s2{background:#F8F5EE;left:7px;top:7px}
+#s1{padding:56px 48px;box-shadow:0 30px 34px rgba(40,20,5,.36)}
+#s1 h4{font:700 40px/1 var(--sans);color:var(--ink);letter-spacing:-.5px}
+#s1 p{font:400 24px/1 var(--sans);color:#5a6577;margin:12px 0 34px}
+.ln{height:12px;border-radius:6px;background:#DDE2EA;margin-bottom:22px}
+.staple{position:absolute;left:28px;top:24px;width:46px;height:8px;border-radius:3px;background:#9aa3b0;transform:rotate(-38deg)}
+#packTag{position:absolute;right:-14px;bottom:70px;width:184px;height:60px;background:var(--kblue);border-radius:10px 0 0 10px;display:flex;align-items:center;gap:10px;padding-left:10px;font:700 26px/1 var(--sans);color:var(--white);box-shadow:0 6px 10px rgba(0,0,0,.18)}
+#packTag .km{width:42px;height:42px}
+#chand{position:absolute;left:0;top:0;overflow:visible}
+
+/* ---------- screen-space ---------- */
+#say{position:absolute;left:0;top:250px;width:1080px;display:flex;justify-content:center}
+#sayPill{background:var(--ink);color:var(--white);font:700 92px/1 var(--sans);letter-spacing:-2px;padding:36px 56px;border-radius:30px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.4)}
+#sayIn{display:block}
+
+#cta{position:absolute;left:0;top:0;width:1080px;height:1920px;background:var(--kblue);clip-path:inset(1150px 180px 550px 600px round 10px);opacity:0}
+#ctaIn{position:absolute;left:0;top:0;width:1080px;height:1920px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#lock2{width:700px}
+#lock2 img{display:block;width:100%}
+.hl{margin-top:110px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.lineM{overflow:hidden;padding:0 10px}
+.w{display:inline-block;font:700 100px/1.14 var(--sans);color:var(--white);letter-spacing:-2px}
+#url{margin-top:100px;background:var(--white);color:var(--kblue);font:700 64px/1 var(--sans);padding:34px 64px;border-radius:999px}
+#fine2{margin-top:10px;font:600 34px/1.3 var(--ui);color:rgba(247,249,255,.9);text-align:center}
+#fine{margin-top:44px;font:600 34px/1.3 var(--ui);color:rgba(247,249,255,.9);text-align:center}
+
+/* ---------- full version: payment, escrow envelope, PIN seal, prices, typing, supplies, referral ---------- */
+.pay{display:flex;gap:8px;margin-top:18px}
+.pay div{flex:1;height:54px;border-radius:14px;font:700 15px/54px var(--ui);text-align:center}
+#momo{background:#FFCC00;color:#0B1B3A}#om{background:#FF7900;color:#0B1B3A}
+#paid{z-index:3;position:absolute;left:16px;right:16px;bottom:62px;height:54px;border-radius:14px;background:var(--ink);color:var(--white);font:700 15px/54px var(--ui);text-align:center;opacity:0}
+#env{position:absolute;left:0;top:0;width:380px;height:290px;z-index:5}
+#envBody{position:absolute;inset:0;border-radius:14px;background:linear-gradient(180deg,#0D5EF4,#0A52D8);box-shadow:0 18px 22px rgba(30,15,5,.4)}
+#flap{position:absolute;left:0;top:0;width:380px;height:150px;background:#2A72FF;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:50% 0;border-radius:14px 14px 0 0}
+#envAmt{position:absolute;left:0;right:0;top:186px;text-align:center;font:700 40px/1 var(--sans);color:var(--white)}
+#envLbl{position:absolute;left:0;right:0;top:238px;text-align:center;font:600 20px/1 var(--ui);color:rgba(247,249,255,.92);letter-spacing:.5px}
+#seal{position:absolute;left:140px;top:70px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FF5A65,#EF2F3C 60%,#C81F2C);box-shadow:0 6px 10px rgba(0,0,0,.3)}
+#sealL,#sealR{position:absolute;top:0;width:50px;height:100px;overflow:hidden}
+#sealL{left:0}#sealR{left:50px}
+#sealL i,#sealR i{position:absolute;top:0;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FF5A65,#EF2F3C 60%,#C81F2C)}
+#sealL i{left:0}#sealR i{left:-50px}
+.dot{position:absolute;width:14px;height:14px;border-radius:50%;background:rgba(247,249,255,.35);top:80px}
+.slip{position:absolute;left:30px;top:40px;width:320px;height:64px;border-radius:8px;background:var(--white);box-shadow:0 8px 12px rgba(0,0,0,.22);display:flex;justify-content:space-between;align-items:center;padding:0 18px;font:700 24px/1 var(--ui);color:var(--ink);opacity:0}
+.slip span:last-child{color:var(--kblue)}
+.simp{position:absolute;left:30px;width:296px;height:92px;white-space:nowrap;border:6px solid #0D5EF4;border-radius:10px;color:#0D5EF4;font:700 30px/80px var(--sans);text-align:center;opacity:0;letter-spacing:.5px}
+#stamp{position:absolute;left:0;top:0;width:300px;height:110px;z-index:7}
+#stampBase{position:absolute;inset:0;border-radius:14px;background:linear-gradient(180deg,#3A4A66,#26324A);box-shadow:0 22px 22px rgba(30,15,5,.4)}
+#stampKnob{position:absolute;left:105px;top:-10px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#5A6B8A,#1B2B44);box-shadow:0 10px 14px rgba(0,0,0,.4)}
+#doc{position:absolute;left:0;top:0;width:470px;height:620px;border-radius:6px;background:#FFFEFA;box-shadow:0 26px 30px rgba(40,20,5,.36);padding:44px 40px;z-index:4}
+#doc h5{font:700 30px/1 var(--sans);color:var(--ink)}
+#doc .tl{height:10px;border-radius:5px;background:#C9D1DD;margin-top:22px}
+#docx{position:absolute;right:24px;top:30px;background:#2B579A;color:#F7F9FF;font:700 18px/1 var(--ui);padding:9px 12px;border-radius:8px}
+#docTag,#supTag{position:absolute;background:var(--kblue);color:var(--white);font:700 24px/1 var(--ui);padding:14px 18px;border-radius:12px;white-space:nowrap;box-shadow:0 8px 14px rgba(0,0,0,.25)}
+#docTag{left:40px;bottom:-26px}
+#sup{position:absolute;left:0;top:0;width:330px;height:240px;z-index:5}
+#cahier{position:absolute;left:0;top:0;width:300px;height:220px;border-radius:10px;background:linear-gradient(135deg,#0D5EF4,#0A4ED0);box-shadow:0 20px 22px rgba(30,15,5,.4)}
+#cahier i{position:absolute;left:24px;top:28px;width:150px;height:46px;border-radius:6px;background:var(--white)}
+.spen{position:absolute;height:22px;border-radius:11px;box-shadow:0 8px 8px rgba(30,15,5,.35)}
+#supTag{left:-160px;top:250px}
+#note{position:absolute;left:0;top:0;width:230px;height:150px;border-radius:8px;background:var(--white);box-shadow:0 14px 16px rgba(30,15,5,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:6}
+#note .km{width:52px;height:52px}
+#note b{font:700 30px/1 var(--sans);color:var(--kblue)}
+#nhand{position:absolute;left:0;top:0;overflow:visible;z-index:6}
+#ref{position:absolute;left:0;top:210px;width:1080px;display:flex;justify-content:center}
+#refPill{background:var(--ink);color:var(--white);border-radius:28px;padding:30px 44px;text-align:center;box-shadow:0 24px 50px rgba(0,0,0,.4)}
+#refPill b{display:block;font:700 62px/1.1 var(--sans);letter-spacing:-1px}
+#refPill span{display:block;margin-top:12px;font:600 34px/1.2 var(--ui);color:#9DBDFF}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="40">
+
+  <audio id="mix" src="audio/mix.wav" data-start="0" data-duration="40"></audio>
+
+  <div id="cam">
+    <div id="world">
+      <div id="lect" data-layout-ignore><div id="board"></div><div id="lbody"></div><div id="lhead"></div><div id="ldesk"></div></div>
+      <div id="cells" data-layout-ignore></div>
+
+      <!-- our cell -->
+      <div class="cell" id="mycell"><div class="wood"></div><div class="seat"></div></div>
+      <div id="desk">
+        <div class="guide" id="g1"></div><div class="guide" id="g2"></div><div class="guide" id="g3"></div><div class="guide" id="g4"></div>
+        <div id="rig">PLONGÉE 90° · AMPHI B · <b>RANG 2</b></div>
+
+        <div id="nb">
+          <div id="tabs">
+            <div class="tab" id="tab1" style="top:250px"><span class="ck">✓</span>Imprimé<div class="tabclip"><div class="mk mkb"></div></div></div>
+            <div class="tab" id="tab2" style="top:356px">Coursier vérifié<div class="tabclip"><div class="mk mkb"></div></div></div>
+            <div class="tab" id="tab3" style="top:462px">À la porte<div class="tabclip"><div class="mk mkb"></div></div></div>
+          </div>
+          <div id="pages">
+            <div class="pg l"><h3>Droit civil</h3>
+              <div class="simp" id="imp1" style="top:150px;transform:rotate(-4deg)">25 XAF / PAGE</div>
+              <div class="simp" id="imp2" style="top:290px;transform:rotate(3deg)">200 XAF EN SALLE</div>
+              <div class="simp" id="imp3" style="top:430px;transform:rotate(-2deg);font-size:21px">MOMO · ORANGE MONEY</div>
+            </div>
+            <div class="pg r">
+              <div class="askc" id="askClip1"><div class="ask" data-layout-allow-overlap>imprimer le</div></div><div class="askc" id="askClip2"><div class="ask" data-layout-allow-overlap>chap. 4 ?</div></div>
+              <svg class="ink" width="350" height="260" viewBox="0 0 350 260"><path id="circ" class="scrib" d="M170 36 C280 30 336 70 330 120 C324 176 230 196 130 192 C46 188 8 156 14 114 C20 66 90 34 180 38 C262 42 318 70 326 106"/></svg>
+              <svg class="ink" width="350" height="780" viewBox="0 0 410 780" preserveAspectRatio="none">
+                <g id="notes" class="scrib" style="stroke-width:3.4;opacity:.85">
+                  <path d="M34 230 c14 -10 24 8 38 0 s22 -10 36 0 s24 8 38 -2 s20 -8 34 2 s24 6 36 -4 s22 -6 34 2 s26 4 40 -4"/>
+                  <path d="M34 288 c16 -8 26 6 40 -2 s22 -8 34 2 s26 8 40 -2 s22 -8 36 0 s24 6 34 -2 s20 -4 30 2"/>
+                  <path d="M34 346 c14 -8 24 8 38 -2 s24 -8 36 2 s22 8 36 -2 s24 -8 38 2 s22 6 36 -2 s26 -4 40 2"/>
+                  <path d="M34 404 c16 -10 26 6 38 -2 s22 -8 36 2 s24 6 38 -4 s22 -6 34 2 s24 6 36 -2"/>
+                  <path d="M34 462 c14 -8 24 8 38 -2 s24 -8 36 2 s22 8 36 -2 s24 -8 38 2 s22 6 36 -2 s26 -4 44 2"/>
+                  <path d="M34 520 c16 -8 26 6 40 -2 s22 -8 34 2 s26 8 40 -2 s22 -8 36 0 s24 6 34 -2"/>
+                  <path d="M34 578 c14 -10 24 8 38 0 s22 -10 36 0 s24 8 38 -2 s20 -8 34 2 s24 6 36 -4"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div id="pack">
+          <div class="sh" id="s3"></div><div class="sh" id="s2"></div>
+          <div class="sh" id="s1"><div class="staple"></div>
+            <h4>Droit civil</h4><p>Chapitre 4 · 24 pages</p>
+            <div class="ln" style="width:92%"></div><div class="ln" style="width:84%"></div><div class="ln" style="width:96%"></div>
+            <div class="ln" style="width:70%"></div><div class="ln" style="width:88%;margin-top:40px"></div><div class="ln" style="width:94%"></div>
+            <div class="ln" style="width:60%"></div><div class="ln" style="width:86%"></div>
+            <div id="packTag"><div class="km mkw"></div>kopia</div>
+          </div>
+        </div>
+
+        <div id="phone"><div id="scr">
+          <div id="island"></div>
+          <div id="lock"><div class="t" id="clock">09:58</div><div class="d">Cours à 10:00</div>
+            <div id="cal">Droit civil · 10:00<small>Amphi B · apporter le chap. 4</small></div></div>
+          <div id="order">
+            <div class="oh" data-layout-allow-overlap><div class="km mkb"></div>Kopia<span data-layout-allow-overlap>kopia.online</span></div>
+            <div class="file"><div class="pdf">PDF</div><div><b>chapitre-4.pdf</b><small>24 pages · recto-verso</small></div></div>
+            <div class="rowx"><span>Impression</span><span>480 XAF</span></div>
+            <div class="rowx"><span>Livraison en salle</span><span>200 XAF</span></div>
+            <div class="tot"><span>Total</span><span>680 XAF</span></div>
+            <div class="pay"><div id="momo">MTN MoMo</div><div id="om">Orange Money</div></div>
+            <div class="ex">EXEMPLE</div>
+            <div id="paid">Payé ✓ · gardé par Kopia</div>
+          </div>
+          <div id="notif" data-layout-allow-occlusion data-layout-allow-overlap><div class="km mkb"></div><div>Livré à votre place<small>Kopia · maintenant</small></div></div>
+        </div></div>
+
+
+        <div id="doc"><div id="docx">DOCX</div><h5>Notes · Droit civil</h5>
+          <div class="tl" style="width:90%"></div><div class="tl" style="width:84%"></div><div class="tl" style="width:95%"></div><div class="tl" style="width:72%"></div>
+          <div class="tl" style="width:88%;margin-top:40px"></div><div class="tl" style="width:93%"></div><div class="tl" style="width:66%"></div><div class="tl" style="width:86%"></div>
+          <div class="tl" style="width:90%;margin-top:40px"></div><div class="tl" style="width:78%"></div>
+          <div id="docTag">Frappe de notes · 300 XAF / page</div></div>
+
+        <div id="env"><div id="envBody"></div>
+          <div class="slip" id="slip1"><span data-layout-allow-overlap>Boutique</span><span data-layout-allow-overlap>480 XAF</span></div>
+          <div class="slip" id="slip2"><span data-layout-allow-overlap>Coursier</span><span data-layout-allow-overlap>150 XAF</span></div>
+          <div class="slip" id="slip3"><span data-layout-allow-overlap>Kopia</span><span data-layout-allow-overlap>50 XAF</span></div>
+          <div id="flap"></div>
+          <div id="envAmt" data-layout-allow-occlusion>680 XAF</div><div id="envLbl" data-layout-allow-occlusion>LIBÉRÉ AU CODE PIN</div>
+          <div id="seal"><div id="sealL"><i></i></div><div id="sealR"><i></i></div>
+            <div class="mk mkw" id="sealMark" style="position:absolute;left:24px;top:22px;width:52px;height:52px"></div>
+            <div class="dot" id="d1" style="left:-30px;top:20px"></div><div class="dot" id="d2" style="left:-30px;top:62px"></div>
+            <div class="dot" id="d3" style="left:116px;top:20px"></div><div class="dot" id="d4" style="left:116px;top:62px"></div></div>
+        </div>
+
+        <div id="sup"><div id="cahier"><i></i></div>
+          <div class="spen" style="left:40px;top:150px;width:260px;background:#0B1B3A;transform:rotate(-8deg)"></div>
+          <div class="spen" style="left:60px;top:186px;width:240px;background:#EF2F3C;transform:rotate(-4deg)"></div>
+          <div id="supTag" data-layout-allow-overlap>Fournitures · même paiement, même livraison</div></div>
+
+        <div id="stamp"><div id="stampBase"></div><div id="stampKnob"></div></div>
+
+        <div id="note"><div class="km mkb"></div><b data-layout-allow-overlap>−50 XAF</b></div>
+        <!-- neighbour's hand, reaching up from the next desk to take the referral note -->
+        <svg id="nhand" width="10" height="10">
+          <path d="M-70 400 L-50 40 L70 40 L90 400 Z" fill="#8A4A4A"/>
+          <path d="M-46 50 C-56 -30 -40 -100 0 -120 L40 -120 C70 -94 74 -30 60 50 Z" fill="#5A3520"/>
+        </svg>
+
+        <div id="ktag"><div class="mk mkb"></div></div>
+
+        <!-- student's writing arm: rotated/stretched every time the pen moves, always reaching the student at the bottom edge -->
+        <div id="arm"><div class="fore"></div><div class="sleeve"></div></div>
+        <!-- student's writing hand, holding the pen; tip at (0,0) of #pen -->
+        <div id="pen">
+          
+          <div id="penBody"></div>
+          <svg width="10" height="10" style="position:absolute;left:0;top:0;overflow:visible">
+            <ellipse cx="96" cy="120" rx="62" ry="78" fill="#7A4A2C"/>
+            <path d="M44 70 C60 40 96 40 112 70 C118 92 104 104 88 98 C76 94 64 86 54 86 Z" fill="#6B3F24"/>
+            <rect x="28" y="16" width="30" height="96" rx="15" fill="#7A4A2C" transform="rotate(-24 43 64)"/>
+          </svg>
+        </div>
+
+        <!-- student's left hand that slides the phone, from the bottom edge -->
+        <svg id="lhand" width="10" height="10">
+          <path d="M-60 260 L60 0 L170 0 L150 300 Z" fill="#2F7A72"/>
+          <path d="M50 10 C40 -60 60 -120 100 -140 L150 -140 C180 -110 186 -50 170 10 Z" fill="#7A4A2C"/>
+          <rect id="thumb" x="150" y="-170" width="34" height="120" rx="17" fill="#6B3F24" transform="rotate(-24 167 -110)"/>
+        </svg>
+
+        <!-- courier's hand + green sleeve, from the top edge -->
+        <svg id="chand" width="10" height="10">
+          <path d="M-90 -900 L90 -900 L80 -40 L-80 -30 Z" fill="#0D5EF4"/>
+          <path d="M-90 -900 L-64 -900 L-56 -34 L-80 -30 Z" fill="#0A4ED0"/>
+          <rect x="-84" y="-60" width="168" height="44" rx="16" fill="#0E1A2B"/>
+          <path d="M-72 -22 C-84 60 -74 130 -38 180 L56 190 C86 130 94 60 78 -22 Z" fill="#7A4A2C"/>
+          <rect x="-58" y="150" width="30" height="150" rx="15" fill="#7A4A2C"/>
+          <rect x="-22" y="162" width="30" height="168" rx="15" fill="#7A4A2C"/>
+          <rect x="14" y="156" width="30" height="160" rx="15" fill="#7A4A2C"/>
+          <rect x="48" y="138" width="26" height="128" rx="13" fill="#7A4A2C"/>
+          <path d="M-68 70 C-104 100 -116 160 -94 200 C-84 216 -66 210 -62 192 C-58 156 -48 120 -38 100 Z" fill="#6B3F24"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="ref"><div id="refPill"><b>Parrainez un ami</b><span>100 XAF pour vous · 50 XAF pour lui</span></div></div>
+
+  <div id="say"><div id="sayPill"><span id="sayIn" data-layout-allow-overlap>Restez en cours.</span></div></div>
+
+  <div id="cta" data-layout-allow-occlusion><div id="ctaIn">
+    <div id="lock2"><img src="assets/brand/kopia-logo-white.png" alt="Kopia"></div>
+    <div class="hl">
+      <div class="lineM"><span class="w" id="w1">Vos impressions</span></div>
+      <div class="lineM"><span class="w" id="w2">viennent à vous.</span></div>
+    </div>
+    <div id="url">kopia.online</div>
+    <div id="fine">dès 25 XAF la page · livraison en salle 200 XAF</div><div id="fine2">MTN MoMo · Orange Money</div>
+  </div></div>
+</div>
+
+<script>
+(function () {
+  // ---------- deterministic world (seeded PRNG, no Math.random) ----------
+  let seed = 7;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+  const shirts = ["#3E5C8A", "#8A4A4A", "#3E7A5C", "#6B5B95", "#9A7A3E", "#4A6E7A", "#7A3E62"];
+  const hair = ["#1d120b", "#2E1B10", "#3A2314", "#140c07"];
+  const cells = document.getElementById("cells");
+  let html = "";
+  for (let r = -1; r <= 2; r++) {
+    for (let c = -2; c <= 2; c++) {
+      if (r === 0 && c === 0) continue;
+      const x = c * 1080, y = r * 1920;
+      const rot = (rnd() * 10 - 5).toFixed(1);
+      const nbx = 80 + rnd() * 200, nby = 160 + rnd() * 260;
+      let inner = `<div class="wood"></div><div class="seat"></div>`;
+      if (rnd() < 0.35) {
+        inner += `<div class="lap" style="left:${120 + rnd() * 200}px;top:${300 + rnd() * 300}px;width:720px;height:500px;transform:rotate(${rot}deg)"></div>`;
+      } else {
+        inner += `<div class="onb" style="left:${nbx}px;top:${nby}px;width:720px;height:660px;transform:rotate(${rot}deg)"><i></i><i></i></div>`;
+        inner += `<div class="opn" style="left:${nbx + 360}px;top:${nby + 760}px;width:300px;transform:rotate(${(rnd() * 60 - 30).toFixed(0)}deg)"></div>`;
+      }
+      inner += `<div class="shoulders" data-layout-ignore style="background:${shirts[Math.floor(rnd() * shirts.length)]}"></div>`;
+      inner += `<div class="head" data-layout-ignore style="background:${hair[Math.floor(rnd() * hair.length)]}"></div>`;
+      html += `<div class="cell" data-layout-ignore style="left:${x}px;top:${y}px">${inner}</div>`;
+    }
+  }
+  cells.innerHTML = html;
+  const myCell = document.getElementById("mycell");
+  myCell.insertAdjacentHTML("beforeend", `<div class="shoulders" data-layout-ignore style="background:#2F7A72"></div><div class="head" data-layout-ignore style="background:#1d120b"></div>`);
+  const board = document.getElementById("board");
+  let b = "";
+  for (let i = 0; i < 9; i++) b += `<i style="left:${120 + (i % 2) * 60}px;top:${90 + i * 64}px;width:${900 + rnd() * 1300}px"></i>`;
+  board.innerHTML = b;
+
+  // stroke lengths for draw-on paths
+  const circ = document.getElementById("circ");
+  const cl = circ.getTotalLength();
+  circ.style.strokeDasharray = cl; circ.style.strokeDashoffset = cl;
+  const notes = Array.from(document.querySelectorAll("#notes path"));
+  notes.forEach(p => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; p.dataset.len = l; });
+
+  const tl = gsap.timeline({ paused: true });
+
+  // arm geometry: wrist just behind the pen tip, base on the bottom edge under the student's shoulder
+  const armFor = (x, y) => {
+    const wx = x + 70, wy = y + 150, bx = x * 0.3 + 380, by = 2000;
+    const dx = wx - bx, dy = wy - by;
+    return { x: bx, y: by - 65, rotation: Math.atan2(dy, dx) * 180 / Math.PI, width: Math.hypot(dx, dy) };
+  };
+  const penTo = (x, y, d, ease, at) => {
+    tl.to("#pen", { x, y, duration: d, ease }, at);
+    tl.to("#arm", { ...armFor(x, y), duration: d, ease }, at);
+  };
+  const penFromTo = (x0, y0, x1, y1, d, ease, at) => {
+    tl.fromTo("#pen", { x: x0, y: y0 }, { x: x1, y: y1, duration: d, ease, immediateRender: false }, at);
+    tl.fromTo("#arm", armFor(x0, y0), { ...armFor(x1, y1), duration: d, ease, immediateRender: false }, at);
+  };
+
+  // ---------- initial states (set through GSAP, never CSS transforms) ----------
+  gsap.set("#cam", { transformOrigin: "540px 860px", scale: 1 });
+  gsap.set("#phone", { x: 750, y: 940, rotation: 8 });
+  gsap.set("#order", { opacity: 0 });
+  gsap.set("#notif", { yPercent: -160, opacity: 0 });
+  gsap.set("#pen", { x: 410, y: 268 });
+  gsap.set("#arm", { transformOrigin: "0px 65px", ...armFor(410, 268) });
+  gsap.set("#penBody", { rotation: 66 });
+  gsap.set("#lhand", { x: 430, y: 2300, opacity: 0 });
+  gsap.set("#ktag", { x: 150, y: 1180, scale: 1.25, opacity: 0, rotation: -6 });
+  gsap.set("#pack", { x: 60, y: -900, rotation: -2, opacity: 0 });
+  gsap.set("#chand", { x: 300, y: -1000, opacity: 0 });
+  gsap.set(".tab", { x: -240, opacity: 0 });
+  gsap.set(".tabclip", { scaleY: 0.4, opacity: 0 });
+  gsap.set(["#askClip1", "#askClip2"], { width: 0 });
+  gsap.set("#sayPill", { opacity: 0, y: 30 });
+  gsap.set("#sayIn", { yPercent: 110 });
+  gsap.set(["#w1", "#w2"], { yPercent: 110 });
+  gsap.set("#url", { opacity: 0, scale: 0.92 });
+  gsap.set(["#fine", "#fine2"], { opacity: 0, y: 20 });
+  gsap.set("#lock2", { opacity: 0, y: -30 });
+  // full-version objects
+  gsap.set("#env", { x: 760, y: 1040, rotation: 8, scale: 0.3, opacity: 0 });
+  gsap.set("#seal", { opacity: 0, scale: 1.6 });
+  gsap.set("#stamp", { x: 1200, y: 300, rotation: -8, opacity: 0 });
+  gsap.set("#doc", { x: 1300, y: 900, rotation: 10, opacity: 0 });
+  gsap.set("#sup", { x: 600, y: -700, rotation: -10, opacity: 0 });
+  gsap.set("#note", { x: 330, y: 1330, rotation: -6, opacity: 0, scale: 0.9 });
+  gsap.set("#nhand", { x: -560, y: 2300, rotation: 30, opacity: 0 });
+  gsap.set("#refPill", { opacity: 0, y: 30 });
+
+  // ---------- 1 · hook (0–2 s): the question, handwritten ----------
+  tl.to("#askClip1", { width: 330, duration: 0.7, ease: "power1.inOut" }, 0.03);
+  tl.to("#askClip2", { width: 330, duration: 0.5, ease: "power1.inOut" }, 0.85);
+  penTo(670, 268, 0.7, "power1.inOut", 0.03); penTo(410, 332, 0.12, "sine.inOut", 0.73); penTo(610, 332, 0.5, "power1.inOut", 0.85);
+  tl.to(circ, { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 1.4);
+  penTo(700, 300, 0.18, "none", 1.4); penTo(520, 380, 0.2, "none", 1.58); penTo(420, 290, 0.17, "none", 1.78);
+  tl.set("#clock", { textContent: "09:59" }, 1.0);
+  tl.fromTo("#cam", { x: 0, y: 0 }, { x: -6, y: 4, duration: 4, ease: "sine.inOut" }, 0);
+
+  // ---------- 2 · order + pay (2–4 s) ----------
+  tl.to("#phone", { x: 390, y: 640, rotation: 0, scale: 1.45, duration: 0.5, ease: "expo.out" }, 2.05);
+  tl.set("#lhand", { opacity: 1 }, 1.99);
+  tl.to("#lhand", { x: 430, y: 1560, duration: 0.5, ease: "expo.out" }, 2.0);
+  tl.to("#order", { opacity: 1, duration: 0.18, ease: "power1.out" }, 2.25);
+  tl.to("#lock", { opacity: 0, duration: 0.18, ease: "power1.out" }, 2.25);
+  tl.to("#thumb", { x: -50, y: 16, duration: 0.12, ease: "power2.in" }, 3.3);
+  tl.to("#momo", { scale: 0.94, duration: 0.08, ease: "power2.in" }, 3.4);
+  tl.to("#momo", { scale: 1, duration: 0.2, ease: "expo.out" }, 3.48);
+  tl.to("#paid", { opacity: 1, duration: 0.12, ease: "power1.out" }, 3.45);
+  tl.to("#thumb", { x: 0, y: 0, duration: 0.2, ease: "power2.out" }, 3.55);
+  tl.to("#phone", { x: 750, y: 940, rotation: 8, scale: 1, duration: 0.4, ease: "power3.inOut" }, 3.65);
+  tl.to("#lhand", { y: 2300, duration: 0.4, ease: "power3.in" }, 3.65);
+  tl.set("#lhand", { opacity: 0 }, 4.06);
+
+  // ---------- 3 · reveal (4–5.5 s): mark drops, camera rises over the hall ----------
+  tl.to("#ktag", { opacity: 1, scale: 1, rotation: -4, duration: 0.32, ease: "back.out(1.2)" }, 3.95);
+  tl.to("#cam", { scale: 0.26, duration: 0.85, ease: "power3.inOut" }, 4.05);
+  tl.to("#sayPill", { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 4.25);
+  tl.to("#sayIn", { yPercent: 0, duration: 0.4, ease: "expo.out" }, 4.3);
+  tl.to("#sayPill", { opacity: 0, y: -20, duration: 0.25, ease: "power2.in" }, 5.25);
+  tl.to("#cam", { scale: 1, x: 0, y: 0, duration: 0.7, ease: "power3.inOut" }, 4.95);
+
+  // ---------- 4 · escrow (5.5–9.5 s): the money leaves the phone in a sealed Kopia envelope ----------
+  tl.set("#env", { opacity: 1 }, 5.6);
+  tl.to("#env", { x: 90, y: 1290, rotation: -4, scale: 1, duration: 0.7, ease: "power2.out" }, 5.6);
+  // object carry: the mark lands on the flap and becomes the wax seal
+  tl.to("#ktag", { x: 185, y: 1315, scale: 0.36, rotation: -4, duration: 0.55, ease: "power2.inOut" }, 6.35);
+  tl.to("#seal", { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out" }, 6.8);
+  tl.to("#ktag", { opacity: 0, duration: 0.08, ease: "none" }, 6.86);
+
+  // ---------- 5 · proof (6–14.5 s): notes keep going, margin tabs, courier delivers ----------
+  const lineT = [6.0, 6.9, 7.8, 8.7, 9.6, 10.5, 11.4];
+  notes.forEach((p, i) => {
+    const y = 140 + 230 + i * 58;
+    penTo(410, y - 10 + i * 2, i === 0 ? 0.1 : 0.2, "sine.inOut", lineT[i] - (i === 0 ? 0.1 : 0.2));
+    tl.to(p, { strokeDashoffset: 0, duration: 0.6, ease: "power1.inOut" }, lineT[i]);
+    penTo(700, y - 26 + i * 2, 0.6, "power1.inOut", lineT[i]);
+  });
+  // the student puts the pen down (frees the desk for what follows)
+  penTo(560, 2350, 0.6, "power2.in", 12.1);
+  tl.set(["#pen", "#arm"], { opacity: 0 }, 12.75);
+  [["#tab1", 10.0], ["#tab2", 11.0], ["#tab3", 12.0]].forEach(([id, t]) => {
+    tl.set(id, { opacity: 1 }, t - 0.01);
+    tl.to(id, { x: 0, duration: 0.3, ease: "power2.out" }, t);
+    tl.to(`${id} .tabclip`, { scaleY: 1, opacity: 1, duration: 0.06, ease: "none" }, t + 0.03);
+  });
+  tl.set(["#chand", "#pack"], { opacity: 1 }, 12.88);
+  tl.to("#chand", { x: 290, y: 820, duration: 0.5, ease: "power2.out" }, 12.9);
+  tl.to("#pack", { x: 60, y: 820, rotation: 3, duration: 0.5, ease: "power2.out" }, 12.9);
+  tl.fromTo("#pack", { scale: 1.04 }, { scale: 1, duration: 0.25, ease: "back.out(1.2)", immediateRender: false }, 13.4);
+  tl.to("#chand", { y: -1100, duration: 0.55, ease: "power2.in" }, 13.52);
+  tl.to("#notif", { yPercent: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, 13.9);
+  tl.to("#cam", { scale: 1.04, duration: 8.5, ease: "sine.inOut" }, 5.65);
+
+  // ---------- 6 · PIN (15.5–19.5 s): the seal lights digit by digit, breaks, the money is split ----------
+  tl.to("#cam", { scale: 1.18, x: 307, y: -525, duration: 0.8, ease: "power2.inOut" }, 15.2);
+  ["#d1", "#d2", "#d3", "#d4"].forEach((d, i) => tl.to(d, { backgroundColor: "#F7F9FF", scale: 1.25, duration: 0.12, ease: "power2.out" }, 16.0 + i * 0.3));
+  tl.to("#sealMark", { opacity: 0, duration: 0.1, ease: "none" }, 17.25);
+  tl.to(".dot", { opacity: 0, duration: 0.1, ease: "none" }, 17.25);
+  tl.to("#sealL", { x: -26, rotation: -24, y: 18, opacity: 0, duration: 0.45, ease: "power2.in" }, 17.3);
+  tl.to("#sealR", { x: 26, rotation: 24, y: 18, opacity: 0, duration: 0.45, ease: "power2.in" }, 17.3);
+  tl.to("#flap", { scaleY: -1, duration: 0.4, ease: "power2.inOut" }, 17.45);
+  [["#slip1", -460, -760, -14], ["#slip2", 40, -1200, 4], ["#slip3", 760, -520, 12]].forEach(([id, dx, dy, r], i) => {
+    tl.set(id, { opacity: 1 }, 17.75 + i * 0.12);
+    tl.fromTo(id, { y: 40 }, { y: -90, duration: 0.25, ease: "power2.out", immediateRender: false }, 17.75 + i * 0.12);
+    tl.to(id, { x: dx, y: dy, rotation: r, duration: 0.6, ease: "power2.in" }, 18.35 + i * 0.12);
+  });
+  // the desk clears: the pack goes in the bag, the empty envelope away, the camera settles back
+  tl.to("#pack", { y: 2300, rotation: -6, duration: 0.6, ease: "power2.in" }, 19.0);
+  tl.to("#env", { y: 2300, rotation: 10, duration: 0.6, ease: "power2.in" }, 19.05);
+  tl.to("#cam", { scale: 1.04, x: 0, y: 0, duration: 0.7, ease: "power2.inOut" }, 18.9);
+  tl.to(".tab", { x: -240, duration: 0.35, ease: "power2.in" }, 19.2);
+  tl.set(".tab", { opacity: 0 }, 19.56);
+  tl.set([".slip"], { opacity: 0 }, 19.3);
+  tl.to("#phone", { x: 1250, rotation: 20, duration: 0.6, ease: "power2.in" }, 19.15);
+  tl.set(["#pack", "#env", "#phone"], { opacity: 0 }, 19.8);
+
+  // ---------- 7 · prices (19.6–24 s): three rubber stamps on the notebook ----------
+  tl.set("#stamp", { opacity: 1 }, 19.55);
+  const stampAt = [[60, 300, -7, "#imp1", 19.9], [52, 440, -0, "#imp2", 20.6], [58, 580, -5, "#imp3", 21.3]];
+  stampAt.forEach(([x, y, r, imp, t], i) => {
+    tl.to("#stamp", { x, y: y - 40, rotation: r, scale: 1.12, duration: i ? 0.3 : 0.35, ease: "power2.inOut" }, t - (i ? 0.3 : 0.35));
+    tl.to("#stamp", { y, scale: 1, duration: 0.07, ease: "power3.in" }, t);
+    tl.set(imp, { opacity: 1 }, t + 0.07);
+    tl.to("#stamp", { y: y - 50, scale: 1.1, duration: 0.18, ease: "power2.out" }, t + 0.1);
+  });
+  tl.to("#stamp", { x: 1250, y: 200, rotation: 10, duration: 0.5, ease: "power2.in" }, 21.6);
+
+  // ---------- 8 · typing (24–28 s): handwritten notes become a typed Word sheet ----------
+  tl.set("#doc", { opacity: 1 }, 23.95);
+  tl.to("#doc", { x: 70, y: 860, rotation: -3, duration: 0.6, ease: "expo.out" }, 24.0);
+  tl.fromTo("#doc .tl", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.25, stagger: 0.12, ease: "power1.out", immediateRender: false }, 24.4);
+
+  // ---------- 9 · supplies (28–31 s): the courier's hand drops pens and a notebook ----------
+  tl.set(["#chand", "#sup"], { opacity: 1 }, 27.9);
+  tl.to("#chand", { x: 760, y: 960, duration: 0.5, ease: "power2.out" }, 27.95);
+  tl.to("#sup", { x: 600, y: 1150, rotation: 5, duration: 0.5, ease: "power2.out" }, 27.95);
+  tl.fromTo("#sup", { scale: 1.05 }, { scale: 1, duration: 0.25, ease: "back.out(1.2)", immediateRender: false }, 28.45);
+  tl.to("#chand", { y: -1100, duration: 0.55, ease: "power2.in" }, 28.6);
+
+  // ---------- 10 · referral (31–35 s): the camera opens on the next desk, a note is passed ----------
+  tl.to("#cam", { scale: 0.5, x: 270, y: 0, duration: 0.8, ease: "power3.inOut" }, 30.9);
+  tl.set("#note", { opacity: 1 }, 31.5);
+  tl.to("#note", { scale: 1, duration: 0.2, ease: "power2.out" }, 31.5);
+  tl.set("#nhand", { opacity: 1 }, 31.6);
+  tl.to("#nhand", { x: -520, y: 1430, rotation: 20, duration: 0.6, ease: "power2.out" }, 31.6);
+  tl.to("#note", { x: -620, y: 1250, rotation: 8, duration: 0.8, ease: "power2.inOut" }, 31.9);
+  tl.to(["#note", "#nhand"], { y: "+=1100", duration: 0.6, ease: "power2.in" }, 33.2);
+  tl.to("#refPill", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 32.0);
+  tl.to("#refPill", { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" }, 34.5);
+  tl.to("#cam", { scale: 1, x: 0, y: 0, duration: 0.7, ease: "power3.inOut" }, 34.2);
+
+  // ---------- 11 · CTA (35–40 s): the blue notebook cover becomes the whole frame ----------
+  tl.set("#cta", { opacity: 1 }, 34.95);
+  tl.to("#cta", { clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.55, ease: "power3.inOut" }, 35.0);
+  tl.set("#cam", { opacity: 0 }, 35.6);
+  tl.to("#lock2", { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 35.4);
+  tl.to("#w1", { yPercent: 0, duration: 0.55, ease: "sine.inOut" }, 35.6);
+  tl.to("#w2", { yPercent: 0, duration: 0.55, ease: "sine.inOut" }, 35.75);
+  tl.to("#url", { opacity: 1, scale: 1, duration: 0.45, ease: "power2.out" }, 36.2);
+  tl.to(["#fine", "#fine2"], { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.12 }, 36.4);
+  tl.fromTo("#ctaIn", { scale: 1 }, { scale: 1.03, duration: 4.9, ease: "sine.inOut" }, 35.1);
+
+  window.__timelines["main"] = tl;
+})();
+</script>
+</body>
+</html>
